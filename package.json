@@ -25,6 +25,7 @@
     "css-loader": "3.4.2",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
+    "emoji-mart": "^3.0.0",
     "file-loader": "4.3.0",
     "formik": "^2.1.5",
     "fs-extra": "^8.1.0",
@@ -47,8 +48,10 @@
     "react-app-polyfill": "^1.0.6",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
+    "react-image-gallery": "^1.0.8",
     "react-query": "^2.5.13",
     "react-router-dom": "^5.2.0",
+    "react-switch": "^6.0.0",
     "resolve": "1.15.0",
     "resolve-url-loader": "3.1.1",
     "sass-loader": "8.0.2",
@@ -84,6 +87,7 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/emoji-mart": "^3.0.4",
     "@types/react-image-gallery": "^1.0.1",
     "react-app-rewired": "^2.1.6"
   },
