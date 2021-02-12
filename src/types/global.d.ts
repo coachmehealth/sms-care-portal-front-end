@@ -3,7 +3,7 @@
  */
 
 declare interface IUserSignup {
-  firstName: string;
+  fName: string;
   lastName: string;
   email: string;
   password: string;
