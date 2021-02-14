@@ -26,6 +26,7 @@
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
     "emoji-mart": "^3.0.0",
+    "express": "^4.17.1",
     "file-loader": "4.3.0",
     "formik": "^2.1.5",
     "fs-extra": "^8.1.0",
