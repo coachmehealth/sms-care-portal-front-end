@@ -19,10 +19,9 @@ RUN touch /app/.aptible.env
 RUN set -a && . /app/.aptible.env && \
     yarn build
 
-ENV REACT_APP_API_URL="http://localhost:3000"
-
 ENV NODE_ENV=production
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+# runs both node server.js and node build/start.js
+CMD ["yarn", "start"]
