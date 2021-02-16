@@ -89,6 +89,7 @@
     "@types/axios": "^0.14.0",
     "@types/emoji-mart": "^3.0.4",
     "@types/react-image-gallery": "^1.0.1",
+    "eslint": "^7.20.0",
     "react-app-rewired": "^2.1.6"
   },
   "jest": {
