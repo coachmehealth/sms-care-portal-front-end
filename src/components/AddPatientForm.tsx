@@ -209,7 +209,7 @@ const AddPatientForm: React.FC = () => {
                             onChange={()=>{}}
                             value = {coachName}
                         />
-                        {dropdownVisible && 
+                        {dropdownVisible &&
                             <CoachDropDown>
                                 {coachDropdown.map((coach: any) => (
                                     <CoachDropDownElement key={coach._id} onClick = {() => {
@@ -248,16 +248,16 @@ const AddPatientForm: React.FC = () => {
                     </FieldWrapper>
 
                     <div>
-                        <label> Patient Language: 
+                        <label> Patient Language:
                         <LanguageSelect id="language-select" name = "langauge" value = {language} onChange = {(e) => setLanguage(e.target.value)}>
                             <option value = "english">English</option>
-                            <option value = "spansh">Spanish</option>
+                            <option value = "spanish">Spanish</option>
                         </LanguageSelect>
                         </label>
                     </div>
 
                     <div>
-                        <label> Enabled: 
+                        <label> Enabled:
                         <EnabledInput type = "checkbox" name="enabled" checked={isEnabled} onChange={(e) => setEnabled(e.target.checked)}/>
                         </label>
                     </div>
