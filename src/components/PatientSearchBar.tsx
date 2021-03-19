@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const TextContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    border-radius: 16px;
-    min-height: 100px;  
-    margin: 12px 0px 16px 20px;
-    justify-content: space-between;
-    min-width: 100px;
-    max-height: 42 px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  min-height: 100px;
+  margin: 12px 0px 16px 20px;
+  justify-content: space-between;
+  min-width: 100px;
+  max-height: 42 px;
 `;
 
 const SearchBar = styled.div`
@@ -27,35 +27,33 @@ const SearchBar = styled.div`
 `;
 
 const Logo = styled.img`
-    width: 11px;
-    margin: 0px 4px;
-`
-const SearchLogo = require('../assets/images/searchLogo.png');
+  width: 11px;
+  margin: 0px 4px;
+`;
+const SearchLogo = require("../assets/images/searchLogo.png");
 
 //CALL A PATIENT HERE TO INTEGRATE INTO HEADER AND SUCH
 //const PATIENT= [
-    //{ firstName: Kakashi,
-       // lastName: Hatake,
-       // coachId: xyz,
-        //language: English,
-       // phoneNumber: "4256989359",
-       // messagesSent: ,
-        //responseCount: ,
-        //reports: {data: , contentType: }   
-    //}
+//{ firstName: Kakashi,
+// lastName: Hatake,
+// coachId: xyz,
+//language: English,
+// phoneNumber: "4256989359",
+// messagesSent: ,
+//responseCount: ,
+//reports: {data: , contentType: }
+//}
 //]
 
-interface Props {
-    
-}
+interface Props {}
 
 const PatientSearchBar: React.FC<Props> = ({}) => {
   return (
     <TextContainer>
-        <SearchBar>
-            <Logo src = {SearchLogo} id = "login-logo"></Logo>
-                 Search by patient or phone number
-         </SearchBar>
+      <SearchBar>
+        <Logo src={SearchLogo} id="login-logo"></Logo>
+        Search by patient or phone number
+      </SearchBar>
     </TextContainer>
   );
 };

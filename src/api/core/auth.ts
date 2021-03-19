@@ -1,5 +1,5 @@
-import { login } from '../userApi';
-import { AxiosError } from 'axios';
+import { login } from "../userApi";
+import { AxiosError } from "axios";
 
 interface LoginParams {
   email: string;
@@ -21,7 +21,7 @@ type AuthCallBack = ({
 }) => void;
 
 class Auth {
-  accessToken: string = '';
+  accessToken: string = "";
 
   loginSubscribers: AuthCallBack[] = [];
   logoutSubscribers: AuthCallBack[] = [];
@@ -43,17 +43,17 @@ class Auth {
   }
 
   getRefreshToken() {
-    return localStorage.getItem('authRefreshToken');
+    return localStorage.getItem("authRefreshToken");
   }
 
   localLogin(accessToken: string, refreshToken: string) {
     this.accessToken = accessToken;
-    localStorage.setItem('authRefreshToken', refreshToken);
+    localStorage.setItem("authRefreshToken", refreshToken);
   }
 
   localLogout() {
-    this.accessToken = '';
-    localStorage.removeItem('authRefreshToken');
+    this.accessToken = "";
+    localStorage.removeItem("authRefreshToken");
   }
 
   login({ email, password }: LoginParams) {
@@ -82,7 +82,7 @@ class Auth {
   }
 
   isAuthenticated() {
-    return localStorage.getItem('authRefreshToken') ? true : false;
+    return localStorage.getItem("authRefreshToken") ? true : false;
   }
 }
 
