@@ -69,6 +69,7 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
@@ -89,6 +90,22 @@
     "@types/axios": "^0.14.0",
     "@types/emoji-mart": "^3.0.4",
     "@types/react-image-gallery": "^1.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.0.0",
+    "@typescript-eslint/parser": "^4.0.0",
+    "babel-eslint": "^10.0.0",
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-react-app": "6.0.0",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^24.0.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "eslint-plugin-testing-library": "^3.9.0",
+    "prettier": "^2.2.1",
     "react-app-rewired": "^2.1.6"
   },
   "jest": {
