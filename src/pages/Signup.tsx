@@ -1,10 +1,10 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import { Formik, Field, Form, FieldAttributes } from 'formik';
-import { signup } from '../api/userApi';
-import { useMutation } from 'react-query';
-import { useHistory } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
+import * as React from "react";
+import styled from "styled-components";
+import { Formik, Field, Form, FieldAttributes } from "formik";
+import { signup } from "../api/userApi";
+import { useMutation } from "react-query";
+import { useHistory } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 
 const FormContainer = styled.div`
   text-align: center;
@@ -19,12 +19,11 @@ const FlexContainer = styled.div`
   display: flex;
 `;
 
-
 const initialValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
 };
 
 const FieldWrapper = ({
@@ -55,7 +54,7 @@ const Signup = () => {
   const handleSubmit = async (values: IUserSignup) => {
     try {
       await signupMutate(values);
-      alert('New Coach Created!');
+      alert("New Coach Created!");
       document.forms[0].reset();
     } catch (error) {
       alert(`Error: ${error.response.data}`);
@@ -64,51 +63,51 @@ const Signup = () => {
 
   return (
     <FlexContainer>
-       <Sidebar />
-    
-    <FormContainer>
-      <h1 className="title is-1">Create New Coach</h1>
+      <Sidebar />
 
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form>
-          <FieldWrapper>
-            <Field
-              name="firstName"
-              className="input"
-              type="text"
-              placeholder="First Name"
-            />
-          </FieldWrapper>
-          <FieldWrapper>
-            <Field
-              name="lastName"
-              className="input"
-              type="text"
-              placeholder="Last Name"
-            />
-          </FieldWrapper>
-          <FieldWrapper>
-            <Field
-              name="email"
-              className="input"
-              type="email"
-              placeholder="Email"
-            />
-          </FieldWrapper>
-          <FieldWrapper>
-            <Field
-              name="password"
-              className="input"
-              type="password"
-              placeholder="Password"
-            />
-          </FieldWrapper>
-          <Button className="button is-primary" type="submit">
-            Create Account
-          </Button>
-        </Form>
-      </Formik>
-    </FormContainer>
+      <FormContainer>
+        <h1 className="title is-1">Create New Coach</h1>
+
+        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+          <Form>
+            <FieldWrapper>
+              <Field
+                name="firstName"
+                className="input"
+                type="text"
+                placeholder="First Name"
+              />
+            </FieldWrapper>
+            <FieldWrapper>
+              <Field
+                name="lastName"
+                className="input"
+                type="text"
+                placeholder="Last Name"
+              />
+            </FieldWrapper>
+            <FieldWrapper>
+              <Field
+                name="email"
+                className="input"
+                type="email"
+                placeholder="Email"
+              />
+            </FieldWrapper>
+            <FieldWrapper>
+              <Field
+                name="password"
+                className="input"
+                type="password"
+                placeholder="Password"
+              />
+            </FieldWrapper>
+            <Button className="button is-primary" type="submit">
+              Create Account
+            </Button>
+          </Form>
+        </Formik>
+      </FormContainer>
     </FlexContainer>
   );
 };

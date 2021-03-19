@@ -1,6 +1,6 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
-import { ENDPOINT } from '../../utils/config';
-import auth from './auth';
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { ENDPOINT } from "../../utils/config";
+import auth from "./auth";
 
 let isAlreadyFetchingAccessToken = false;
 let subscribers: ((accessToken: string) => void)[] = [];
@@ -34,7 +34,7 @@ async function refreshTokenAndReattemptRequest(
   try {
     const refreshToken = auth.getRefreshToken();
     if (!refreshToken) {
-      return Promise.reject(new Error('Invalid refresh token'));
+      return Promise.reject(new Error("Invalid refresh token"));
     }
 
     const retryOriginalRequest = new Promise((resolve) => {
@@ -47,17 +47,17 @@ async function refreshTokenAndReattemptRequest(
     if (!isAlreadyFetchingAccessToken) {
       isAlreadyFetchingAccessToken = true;
       const response = await axios({
-        method: 'POST',
+        method: "POST",
         url: `${ENDPOINT}/api/coaches/refreshToken`,
         timeout: 0,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         data: JSON.stringify({ refreshToken }),
       });
 
       if (!response.data) {
-        return Promise.reject(new Error('Failed to fetch refresh token'));
+        return Promise.reject(new Error("Failed to fetch refresh token"));
       }
       const newAccessToken = response.data.accessToken;
       auth.setAccessToken(newAccessToken);
