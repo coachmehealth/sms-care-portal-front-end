@@ -5,6 +5,7 @@ import {SortOption, TableProps, TableOptions, Column} from '../components/Table'
 
 const StyledTable = styled.table`
     width: 100%;
+    
 `
 
 const HeaderRow = styled.tr`
@@ -24,9 +25,11 @@ const TableCell = styled.td`
 
 const BodyRow = styled.tr`
     border-bottom: 1px solid #C4C4C4;
+    
 `
 
 const TableContainer = styled.div`
+    min-width: 800px;
     background-color: white;
     border-radius: 20px;
     width: 80%;
@@ -85,6 +88,7 @@ const PageIndicator = styled.p`
 
 const Button = styled.button`
     width: 50%;
+    min-width: 70px;
     background-color: #F29DA4 !important;
     font-size: 13px !important;
     border-radius: 15px !important;

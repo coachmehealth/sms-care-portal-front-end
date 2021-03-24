@@ -1,7 +1,6 @@
 import { time } from 'console';
 import React from 'react';
-import ImageGallery from "react-image-gallery";
-import "../styles/image-gallery.css"
+
 import styled, { createGlobalStyle } from 'styled-components';
 import Table, { Column, SortOption, TableOptions } from "../components/Table";
 import ScheduledMessageTable from "../components/ScheduledMessageTable";
@@ -76,13 +75,13 @@ const PatientRecords: React.FC = () => {
     return (
         <DashboardContainer>
             <GlobalStyle />
-            <ImageGalleryStyles></ImageGalleryStyles>
+            
             <div className="columns">
                 <div className="column">
                     {loadingPatient && <div>Loading...</div>}
                     {patient && loadHeader(patient)}
                     <Subtitle>Weekly Reports, Measurements, and SMS Chat logs</Subtitle>
-                        <ImageGallery infinite = {false} items = {images} showThumbnails={false} showPlayButton={false} showFullscreenButton={false}></ImageGallery>
+     
             
                         {loadingOutcomes && <div>Loading...</div>}
                         {outcomes && <ResultsTable options={table1Options} title="" data={outcomes as any} columns={cols}></ResultsTable>}
@@ -245,43 +244,6 @@ const ActiveTextB = styled.p`
     font-weight: 800;
 `
 
-const ImageGalleryStyles = createGlobalStyle`
-    .image-gallery {
-        padding: 40px 100px; 
-        background-color: white;
-        margin-bottom: 30px;
-        border-radius: 20px;
-        box-shadow: 5px 5px 10px rgba(221, 225, 231, 0.5);
-    }
-
-    .image-gallery-svg {
-        stroke-width: 1.5px;
-    }
-
-    .image-gallery-right-nav {
-        right: -90px;
-    }
-
-    .image-gallery-left-nav {
-        left: -90px;
-    }
-
-    .image-gallery-left-nav, .image-gallery-right-nav {
-        filter: none;
-        color: #F29DA4;
-
-        &:hover {
-            filter: drop-shadow(0 0 4px #c4c4c4);
-            color: #F29DA4;
-        }
-
-        &:focus {
-            filter: drop-shadow(0 0 4px #c4c4c4);
-            color: #F29DA4;
-            outline: none;
-        }
-    }
-`
 
 function classifyNumeric(input:any) {
     var number = parseInt(input);

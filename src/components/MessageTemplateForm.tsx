@@ -139,7 +139,7 @@ const MessageTemplateForm : React.FC = () => {
     }
 
     return (
-        <div style = {{ padding: 30, backgroundColor: "white", textAlign: "center", maxWidth: 768, margin: "auto"}}>
+        <div style = {{ padding: 30, backgroundColor: "white", textAlign: "center", maxWidth: 800, minWidth: 800, margin: "auto"}}>
             <h1 style = {{ fontWeight: 800, fontSize: 36, color: "#637792" }}>Add Message Template</h1>
             <h3>Please enter the message information below: </h3>
             { message != null && 
