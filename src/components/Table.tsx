@@ -181,17 +181,17 @@ const Table: React.FC<TableProps> = ({ title, data, columns, options, query, coa
         
     }, [currentSort])
 
-	// Update sorted data to filter data based on showCoachPatients toggle option
-	// Called when showCoachPatients or coachId changes
-	useEffect(() => {
-		if (showCoachPatients && coachID) {
-			setSortedData(data.filter(patient => patient.coachID === coachID));
-		} else {
-			setSortedData(data);
-		}
-	}, [showCoachPatients, coachID])
+    // Update sorted data to filter data based on showCoachPatients toggle option
+    // Called when showCoachPatients or coachId changes
+    useEffect(() => {
+        if (showCoachPatients && coachID) {
+            setSortedData(data.filter(patient => patient.coachID === coachID));
+        } else {
+            setSortedData(data);
+        }
+    }, [showCoachPatients, coachID])
 
-	useEffect(() => {
+    useEffect(() => {
         if ((query != undefined) && (query != "")) {
             setSortedData(data.filter(patient => 
                 (patient.firstName + " " + patient.lastName).toLowerCase().includes(query.toLowerCase())))

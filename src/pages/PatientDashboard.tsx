@@ -24,20 +24,20 @@ const SearchBarContainer = styled.div`
 const ToggleText = styled.h1`
     font-weight: 800;
     font-size: 18px;
-	margin-right: 5px;
-	&:hover: {
-		background: red;
-		pointer: not-allowed;
-	};
+    margin-right: 5px;
+    &:hover: {
+        background: red;
+        pointer: not-allowed;
+    };
 `
 
 const ToggleContainer = styled.div<{show: boolean}>`
-	visibility: ${(props: {show: boolean}) => props.show ? 'visible' : 'hidden'};
+    visibility: ${(props: {show: boolean}) => props.show ? 'visible' : 'hidden'};
     padding-top: 5px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-end;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
 `
 
 const GlobalStyle = createGlobalStyle`
@@ -70,36 +70,36 @@ const PatientDashboard: React.FC = () => {
         }
     );
 
-	const firstName = profileQuery.data ? (profileQuery.data as any).data.firstName : null;
+    const firstName = profileQuery.data ? (profileQuery.data as any).data.firstName : null;
 
-	// Get ID of coach logged in and check to see if coach has any patients by using the id
-	const coachID = profileQuery.data ? (profileQuery.data as any).data._id : null;
-	const coachHasPatients = patientQuery.data && coachID
-		? (patientQuery.data as any).some((patient: any) => patient.coachID === coachID)
-		: false;
+    // Get ID of coach logged in and check to see if coach has any patients by using the id
+    const coachID = profileQuery.data ? (profileQuery.data as any).data._id : null;
+    const coachHasPatients = patientQuery.data && coachID
+        ? (patientQuery.data as any).some((patient: any) => patient.coachID === coachID)
+        : false;
 
-	// search bar
-	const onSearch = (query : string) => {
-		setQuery(query);
-	};
+    // search bar
+    const onSearch = (query : string) => {
+        setQuery(query);
+    };
 
-	// For handling switch toggle. Only active when coach has patients
-	const onCoachPatientsToggle = () => {
-		if (coachHasPatients) {
-			setShowCoachPatients(!showCoachPatients);
-		}
-	}
+    // For handling switch toggle. Only active when coach has patients
+    const onCoachPatientsToggle = () => {
+        if (coachHasPatients) {
+            setShowCoachPatients(!showCoachPatients);
+        }
+    }
 
     const [query, setQuery] = useState<string>("");
-	const [showCoachPatients, setShowCoachPatients] = useState<boolean>(true);
+    const [showCoachPatients, setShowCoachPatients] = useState<boolean>(true);
 
-	// Hook to make sure all data is loaded successfully before showing
-	// If coach has no patients, Toggle option will be hidden and all patients will be shown
-	useEffect(() => {
-		if (patientQuery.data && profileQuery.data && !coachHasPatients) {
-			setShowCoachPatients(false);
-		}
-	}, [profileQuery.isLoading, patientQuery.isLoading]);
+    // Hook to make sure all data is loaded successfully before showing
+    // If coach has no patients, Toggle option will be hidden and all patients will be shown
+    useEffect(() => {
+        if (patientQuery.data && profileQuery.data && !coachHasPatients) {
+            setShowCoachPatients(false);
+        }
+    }, [profileQuery.isLoading, patientQuery.isLoading]);
 
     return (
         <DashboardContainer>
@@ -112,13 +112,13 @@ const PatientDashboard: React.FC = () => {
                     <SearchBarContainer>
                         <SearchBar placeholder = {"Search by patient name"} onSearch={ onSearch }></SearchBar>
                     </SearchBarContainer>
-					<ToggleContainer show={coachHasPatients}>
-						<ToggleText>Only View My Patients</ToggleText>
-						<Switch
-							onChange={onCoachPatientsToggle}
-							checked={showCoachPatients}
-						/>
-					</ToggleContainer>
+                    <ToggleContainer show={coachHasPatients}>
+                        <ToggleText>Only View My Patients</ToggleText>
+                        <Switch
+                            onChange={onCoachPatientsToggle}
+                            checked={showCoachPatients}
+                        />
+                    </ToggleContainer>
                 </div>
             </Header>
             <div className="columns is-hidden-desktop">
@@ -129,13 +129,13 @@ const PatientDashboard: React.FC = () => {
                     <SearchBarContainer>
                         <SearchBar placeholder = {"Search for patients"} onSearch={ onSearch }></SearchBar>
                     </SearchBarContainer>
-					<ToggleContainer show={coachHasPatients}>
-						<ToggleText>Only View My Patients</ToggleText>
-						<Switch
-							onChange={onCoachPatientsToggle}
-							checked={showCoachPatients}
-						/>
-					</ToggleContainer>
+                    <ToggleContainer show={coachHasPatients}>
+                        <ToggleText>Only View My Patients</ToggleText>
+                        <Switch
+                            onChange={onCoachPatientsToggle}
+                            checked={showCoachPatients}
+                        />
+                    </ToggleContainer>
                 </div>
             </div>
             {patientQuery.isLoading && <div>Loading...</div>}
@@ -144,8 +144,8 @@ const PatientDashboard: React.FC = () => {
                                           data={patientQuery.data as any} 
                                           columns={cols}
                                           query={query}
-										  coachID={coachID}
-										  showCoachPatients={showCoachPatients}>
+                                          coachID={coachID}
+                                          showCoachPatients={showCoachPatients}>
                                           </Table>}
         </DashboardContainer>
     )
