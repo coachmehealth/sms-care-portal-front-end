@@ -29,6 +29,12 @@ export interface TableProps {
 
     // the search query for the table (optional)
     query?: string
+
+	// Coach id to filter patients by coachID (optional)
+	coachID?: string | null
+
+	// Toggle on/off option for showing only coach's patients (optional)
+	showCoachPatients?: boolean
 }
 
 export interface TableOptions {
@@ -136,7 +142,7 @@ const PageIndicator = styled.p`
 `
 
 
-const Table: React.FC<TableProps> = ({ title, data, columns, options, query }: TableProps) => {
+const Table: React.FC<TableProps> = ({ title, data, columns, options, query, coachID, showCoachPatients }: TableProps) => {
     // set default sort to marked default, or null if no sorts provided
     const defaultSort = (options.sortOptions) && options.sortOptions.length >= 1 ? options.sortOptions.filter((option: SortOption) => {
         return option.default;
@@ -175,7 +181,17 @@ const Table: React.FC<TableProps> = ({ title, data, columns, options, query }: T
         
     }, [currentSort])
 
-    useEffect(() => {
+	// Update sorted data to filter data based on showCoachPatients toggle option
+	// Called when showCoachPatients or coachId changes
+	useEffect(() => {
+		if (showCoachPatients && coachID) {
+			setSortedData(data.filter(patient => patient.coachID === coachID));
+		} else {
+			setSortedData(data);
+		}
+	}, [showCoachPatients, coachID])
+
+	useEffect(() => {
         if ((query != undefined) && (query != "")) {
             setSortedData(data.filter(patient => 
                 (patient.firstName + " " + patient.lastName).toLowerCase().includes(query.toLowerCase())))
