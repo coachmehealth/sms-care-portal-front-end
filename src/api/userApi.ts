@@ -72,7 +72,7 @@ const getPatients = (key: string, { accessToken }: { accessToken: string }) => {
       },
     })
       .then((res) => {
-        for(var i = 0; i < res.data.length; i++) {
+        for(let i = 0; i < res.data.length; i++) {
           res.data[i].phoneNumber = res.data[i].phoneNumber.replace(/[^0-9\.]/g, '');
           if (res.data[i].enabled) {
             res.data[i].status = "Enabled";
@@ -83,7 +83,7 @@ const getPatients = (key: string, { accessToken }: { accessToken: string }) => {
           if (parseInt(res.data[i].responseCount) === 0 || parseInt(res.data[i].messagesSent) === 0){
             res.data[i].responseRate = 0;
           } else {
-          var respRate = (parseInt(res.data[i].responseCount)) / parseInt((res.data[i].messagesSent));
+          const respRate = parseInt(res.data[i].responseCount)/parseInt(res.data[i].messagesSent);
           res.data[i].responseRate = Math.round(100 * respRate);
           }
           
