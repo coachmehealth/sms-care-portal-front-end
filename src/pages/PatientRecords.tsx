@@ -61,50 +61,50 @@ const PatientRecords: React.FC = () => {
 
   const loadHeader = (res: any) => {
     return (
-        <DashboardContainer>
-            <GlobalStyle />
-            
-            <div className="columns">
-                <div className="column">
-                    {loadingPatient && <div>Loading...</div>}
-                    {patient && loadHeader(patient)}
-                    <Subtitle>Weekly Reports, Measurements, and SMS Chat logs</Subtitle>
-     
-            
-                        {loadingOutcomes && <div>Loading...</div>}
-                        {outcomes && <ResultsTable options={table1Options} title="" data={outcomes as any} columns={cols}></ResultsTable>}
-                        {!loadingOutcomes && !outcomes && <p>No measuremnts found.</p>}
-                    </div>
-                <div className="column">
-                    {loadingMessages && loadingPatient && <div>Loading...</div>}
-                    {messages && patient && <SMSTile messages={messages as any} patient={patient as any} > </SMSTile>}
-                    
-                </div>
-            </div>
-        </DashboardContainer>
-    )
-}
+      <Title>
+        {res.firstName} {res.lastName}'s Patient Records
+      </Title>
+    );
+  };
+
+  return (
+    <DashboardContainer>
+      <GlobalStyle />
+      <div className="columns">
+        <div className="column">
+          {loadingPatient && <div>Loading...</div>}
+          {patient && loadHeader(patient)}
+          <Subtitle>Weekly Reports, Measurements, and SMS Chat logs</Subtitle>
+
+          {loadingOutcomes && <div>Loading...</div>}
+          {outcomes && (
+            <ResultsTable
+              options={table1Options}
+              title=""
+              data={outcomes as any}
+              columns={cols}
+            ></ResultsTable>
+          )}
+          {!loadingOutcomes && !outcomes && <p>No measuremnts found.</p>}
+        </div>
+        <div className="column">
+          {loadingMessages && loadingPatient && <div>Loading...</div>}
+          {messages && patient && (
+            <SMSTile messages={messages as any} patient={patient as any}>
+              {" "}
+            </SMSTile>
+          )}
+        </div>
+      </div>
+    </DashboardContainer>
+  );
+};
 
 // options for sorting the tables on the right
 const table1Options: TableOptions = {
   sortOptions: [],
   sortsChoiceEnabled: false,
 };
-
-const images = [
-  {
-    original: "https://picsum.photos/id/1018/1000/600/",
-    thumbnail: "https://picsum.photos/id/1018/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1015/1000/600/",
-    thumbnail: "https://picsum.photos/id/1015/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-];
 
 // columns for the right side of the page
 const cols: Column[] = [
@@ -197,7 +197,6 @@ const CheckBox = styled.input`
 
 const ExportButton = styled.button`
   float: right;
-
   padding: 9px 20px;
   background-color: #f29da4 !important;
   font-size: 13px !important;
@@ -234,7 +233,6 @@ const ActiveTextB = styled.p`
   color: #1f1e1d;
   font-weight: 800;
 `;
-
 
 function classifyNumeric(input: any) {
   var number = parseInt(input);

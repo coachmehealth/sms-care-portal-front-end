@@ -28,7 +28,7 @@ const TableCell = styled.td`
 `;
 
 const BodyRow = styled.tr`
-  border-bottom: 1px solid #c4c4c4;  
+  border-bottom: 1px solid #c4c4c4;
 `;
 
 const TableContainer = styled.div`
