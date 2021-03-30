@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 import AppContainer from "../components/AppContainer";
 
 const FlexContainer = styled.div`
@@ -22,7 +22,7 @@ const Profile = () => {
         <h3 className="title is-3">Profile Page</h3>
         <button
           className="button is-primary"
-          onClick={() => history.push('/dashboard')}
+          onClick={() => history.push("/dashboard")}
         >
           Dashboard
         </button>

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import auth from '../api/core/auth';
-import AppContainer from './AppContainer';
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import auth from "../api/core/auth";
+import AppContainer from "./AppContainer";
 
 const PrivateRoute: React.FC<{
   component: React.FC;
@@ -12,7 +12,11 @@ const PrivateRoute: React.FC<{
 
   return condition ? (
     <AppContainer>
-      <Route path={props.path} exact={props.exact} component={props.component} />
+      <Route
+        path={props.path}
+        exact={props.exact}
+        component={props.component}
+      />
     </AppContainer>
   ) : (
     <Redirect to="/login" />
