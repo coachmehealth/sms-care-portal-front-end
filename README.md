@@ -1,4 +1,4 @@
-# CoachMe Health SMS Care Delivery Tool
+# CoachMe Health SMS Care Tool Front End
 
 ## Setting Up
 
@@ -20,7 +20,7 @@ We recommend using VSCode as it has very good Typescript support.
 
 1. Make sure you have all tool dependencies installed and running
 1. Install project dependencies using `yarn install`
-1. Setup your local ENV variables using your prefered shell environment management tool (we like [direnv](https://github.com/direnv/direnv). `src/utils/config.ts` is a great starting point for what env vars you need.
+1. Setup your local ENV variables using your prefered shell environment management tool (we like [direnv](https://github.com/direnv/direnv).
     - There's only 1 env variable that matters `REACT_APP_API_URL` which should be the URI where the backend is running. One example would be `REACT_APP_API_URL=http://localhost:3001 yarn start`
 1. Run the tests, local server, or typescript compiler using the relevant yarn command. `yarn run` will list tasks
 
