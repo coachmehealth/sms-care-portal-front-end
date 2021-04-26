@@ -53,8 +53,9 @@ const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(auth.isAuthenticated());
 
   const logout = ({ loggedIn }: { loggedIn: boolean }) => {
-    history.push("/");
-    setLoggedIn(loggedIn);
+    if (!loggedIn) {
+      history.push("/");
+    }
   };
 
   const login = ({ loggedIn }: { loggedIn: boolean }) => {
@@ -93,6 +94,10 @@ const Navbar = () => {
           <i className="fa fa-user-plus icon"></i>
         </NavbarItem>
       </Link>
+
+      <NavbarItem onClick={auth.logout.bind(auth)}>
+        <i className="fas fa-sign-out-alt icon" />
+      </NavbarItem>
     </NavbarContainer>
   );
 };

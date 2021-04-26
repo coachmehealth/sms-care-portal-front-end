@@ -1,4 +1,4 @@
-import { login } from "../userApi";
+import { login, logout } from "../userApi";
 import { AxiosError } from "axios";
 
 interface LoginParams {
@@ -75,10 +75,21 @@ class Auth {
   }
 
   logout() {
-    this.localLogout();
-    this.logoutSubscribers.forEach((subscriber) => {
-      subscriber({ loggedIn: false });
-    });
+    logout({
+      accessToken: this.accessToken,
+      refreshToken: this.getRefreshToken() || "",
+    })
+      .then(() => {
+        this.localLogout();
+        this.logoutSubscribers.forEach((subsriber) => {
+          subsriber({ loggedIn: false });
+        });
+      })
+      .catch((error: AxiosError) => {
+        this.logoutSubscribers.forEach((subscriber) => {
+          subscriber({ loggedIn: true, errorMessage: error.response?.data });
+        });
+      });
   }
 
   isAuthenticated() {

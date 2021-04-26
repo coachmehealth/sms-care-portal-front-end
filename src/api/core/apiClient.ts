@@ -38,6 +38,12 @@ async function refreshTokenAndReattemptRequest(
     }
 
     const retryOriginalRequest = new Promise((resolve) => {
+      if (errorResponse.config.url?.split("/").pop() === "logout") {
+        auth.localLogout();
+        window.location.reload();
+        return;
+      }
+
       addSubscriber((accessToken: string) => {
         errorResponse!.config.headers.Authorization = `Bearer ${accessToken}`;
         resolve(axios(errorResponse!.config));

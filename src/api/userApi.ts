@@ -122,4 +122,31 @@ const getTemplates = (
   });
 };
 
-export { signup, login, fetchMe, getPatients, getTemplates };
+const logout = ({
+  accessToken,
+  refreshToken,
+}: {
+  accessToken: string;
+  refreshToken: string;
+}) => {
+  return new Promise((resolve, reject) => {
+    secureAxios({
+      url: "/api/coaches/logout",
+      method: "DELETE",
+      timeout: 0,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify({
+        refreshToken,
+      }),
+    })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err: Error) => reject(err));
+  });
+};
+
+export { signup, login, fetchMe, getPatients, getTemplates, logout };
