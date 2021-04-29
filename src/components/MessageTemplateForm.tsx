@@ -143,8 +143,7 @@ const MessageTemplateForm: React.FC = () => {
         padding: 30,
         backgroundColor: "white",
         textAlign: "center",
-        maxWidth: 800,
-        minWidth: 800,
+        width: 800,
         margin: "auto",
       }}
     >

@@ -90,25 +90,12 @@ const PageIndicator = styled.p`
 `;
 
 const Button = styled.button`
-<<<<<<< HEAD
     width: 50%;
     min-width: 70px;
     background-color: #F29DA4 !important;
     font-size: 13px !important;
     border-radius: 15px !important;
     color: white !important;
-=======
-  width: 50%;
-  background-color: #f29da4 !important;
-  font-size: 13px !important;
-  border-radius: 15px !important;
-  color: white !important;
-  border: none !important;
-  font-weight: 600;
-
-  &:hover {
-    box-shadow: 5px 5px 10px rgba(221, 225, 231, 1) !important;
->>>>>>> master
     border: none !important;
   }
 
