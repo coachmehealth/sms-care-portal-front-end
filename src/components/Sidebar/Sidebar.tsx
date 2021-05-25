@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import secureAxios from "../../api/core/apiClient";
-import {IOutcomeArray} from './ISidebar';
+import { IOutcomeArray } from "./ISidebar";
 
 const SidebarContainer = styled.div`
   display: flex;
@@ -100,11 +100,14 @@ function downloadCSV(data: any) {
   document.body.removeChild(a);
 }
 
-
-//! Delete this after normalizing database. 
-export const normalizeString = (string: string) =>{
-  return typeof string === "string" ? string.replace('"',"'").normalize("NFD").replace(/[\u0300-\u036f]/g, "") : string;
-}
+export const normalizeString = (string: string) => {
+  return typeof string === "string"
+    ? string
+        .replace('"', "'")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+    : string;
+};
 
 function outcomesToCSV(data: IOutcomeArray) {
   const csvRows = [];
