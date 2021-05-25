@@ -100,12 +100,10 @@ function downloadCSV(data: any) {
   document.body.removeChild(a);
 }
 
-export const normalizeString = (string: string) => {
+export const quoteString = (string: string) => {
   return typeof string === "string"
-    ? string
-        .replace('"', "'")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
+    ? `"${string
+        .replace(/"/g, '""')}"`
     : string;
 };
 
@@ -124,14 +122,14 @@ function outcomesToCSV(data: IOutcomeArray) {
   csvRows.push(headers.join(","));
   for (const row of data) {
     const values = [
-      normalizeString(row.firstName),
-      normalizeString(row.lastName),
-      normalizeString(row.patientID),
-      normalizeString(row.phoneNumber),
-      normalizeString(new Date(row.date).toString()),
-      `"${normalizeString(row.response)}"`,
-      normalizeString(row.value),
-      normalizeString(row.alertType),
+      quoteString(row.firstName),
+      quoteString(row.lastName),
+      quoteString(row.patientID),
+      quoteString(row.phoneNumber),
+      quoteString(new Date(row.date).toString()),
+      quoteString(row.response),
+      quoteString(row.value),
+      quoteString(row.alertType),
     ];
     csvRows.push(values.join(","));
   }
