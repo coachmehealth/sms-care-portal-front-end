@@ -1,7 +1,9 @@
+import { type } from "node:os";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import secureAxios from "../api/core/apiClient";
+import secureAxios from "../../api/core/apiClient";
+import {IOutcomeArray} from './ISidebar';
 
 const SidebarContainer = styled.div`
   display: flex;
@@ -98,7 +100,13 @@ function downloadCSV(data: any) {
   document.body.removeChild(a);
 }
 
-function outcomesToCSV(data: any) {
+
+//! Delete this after normalizing database. 
+export const normalizeString = (string: string) =>{
+  return typeof string === "string" ? string.replace('"',"'").normalize("NFD").replace(/[\u0300-\u036f]/g, "") : string;
+}
+
+function outcomesToCSV(data: IOutcomeArray) {
   const csvRows = [];
   const headers = [
     "First Name",
@@ -113,14 +121,14 @@ function outcomesToCSV(data: any) {
   csvRows.push(headers.join(","));
   for (const row of data) {
     const values = [
-      row.firstName,
-      row.lastName,
-      row.patientID,
-      row.phoneNumber,
-      new Date(row.date).toString(),
-      row.response,
-      row.value,
-      row.alertType,
+      normalizeString(row.firstName),
+      normalizeString(row.lastName),
+      normalizeString(row.patientID),
+      normalizeString(row.phoneNumber),
+      normalizeString(new Date(row.date).toString()),
+      `"${normalizeString(row.response)}"`,
+      normalizeString(row.value),
+      normalizeString(row.alertType),
     ];
     csvRows.push(values.join(","));
   }
