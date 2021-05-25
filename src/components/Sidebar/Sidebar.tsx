@@ -102,8 +102,7 @@ function downloadCSV(data: any) {
 
 export const quoteString = (string: string) => {
   return typeof string === "string"
-    ? `"${string
-        .replace(/"/g, '""')}"`
+    ? `"${string.replace(/"/g, '""')}"`
     : string;
 };
 
