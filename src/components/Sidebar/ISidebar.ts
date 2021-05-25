@@ -1,4 +1,4 @@
-export interface IOutcome{
+export interface IOutcome {
   alertType: string;
   date: string;
   firstName: string;
@@ -9,4 +9,4 @@ export interface IOutcome{
   value: string;
 }
 
-export interface IOutcomeArray extends Array<IOutcome>{}
+export interface IOutcomeArray extends Array<IOutcome> {}
