@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import secureAxios from "../../api/core/apiClient";
-import TextSendBar from "../TextSendBar";
+import secureAxios from "api/core/apiClient";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
+import { IPatient } from "pages/PatientRecords/IPatientRecords";
 
 const SMSTileContainer = styled.div`
   display: flex;
@@ -136,7 +136,7 @@ enum Texter {
 
 interface SMSProps {
   messages: any[];
-  patient: any;
+  patient: IPatient;
 }
 
 interface TextProps {

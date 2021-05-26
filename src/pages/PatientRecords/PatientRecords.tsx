@@ -2,10 +2,8 @@ import React from "react";
 import ImageGallery from "react-image-gallery";
 import "../../styles/image-gallery.css";
 import styled, { createGlobalStyle } from "styled-components";
-import Table, { Column, SortOption, TableOptions } from "../../components/Table";
-import ScheduledMessageTable from "../../components/ScheduledMessageTable";
+import { Column, TableOptions } from "../../components/Table";
 import ResultsTable from "../../components/ResultsTable";
-import SearchBar from "../../components/SearchBar";
 import {
   getPatientOutcomes,
   getPatient,
@@ -15,11 +13,9 @@ import { useQuery } from "react-query";
 import auth from "../../api/core/auth";
 import { useParams } from "react-router-dom";
 import { SMSTile, Texter } from "../../components/SMSTile/SMSTile";
+import { IPatient } from "./IPatientRecords";
 
 const PatientRecords: React.FC = () => {
-  const onSearch = (query: string) => {
-    alert(`You searched ${query}`);
-  };
   const id = useParams<{ id: string }>();
 
   const { data: patient, isLoading: loadingPatient } = useQuery(
@@ -65,22 +61,6 @@ const PatientRecords: React.FC = () => {
       </Title>
     );
   };
-
-  interface IPatient {
-    _id: string;
-    coachId: string;
-    coachName: string;
-    enabled: boolean;
-    firstName: string;
-    lastName: string;
-    language: string;
-    messagesSent:number;
-    phoneNumber: string;
-    prefTime: number;
-    reports: [];
-    responseCount: 0;
-    __v: number;
-  }
 
   return (
     <DashboardContainer>

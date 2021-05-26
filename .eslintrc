@@ -6,6 +6,13 @@
   },
   "extends": "react-app",
   "plugins": ["@typescript-eslint", "prettier"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
   "rules": {
     "no-console": "warn",
     "prettier/prettier": "error"
