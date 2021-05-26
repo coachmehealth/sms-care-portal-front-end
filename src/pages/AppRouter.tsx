@@ -5,7 +5,7 @@ import Dashboard from "./Dashboard";
 import Profile from "./Profile";
 import MessageTemplatePage from "./MessageTemplates";
 import PatientDashboard from "./PatientDashboard";
-import PatientRecords from "./PatientRecords";
+import PatientRecords from "./PatientRecords/PatientRecords";
 import AddPatientForm from "../components/AddPatientForm";
 import MessageTemplateForm from "../components/MessageTemplateForm";
 import AppContainer from "../components/AppContainer";

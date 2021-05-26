@@ -1,21 +1,20 @@
-import { time } from "console";
 import React from "react";
 import ImageGallery from "react-image-gallery";
-import "../styles/image-gallery.css";
+import "../../styles/image-gallery.css";
 import styled, { createGlobalStyle } from "styled-components";
-import Table, { Column, SortOption, TableOptions } from "../components/Table";
-import ScheduledMessageTable from "../components/ScheduledMessageTable";
-import ResultsTable from "../components/ResultsTable";
-import SearchBar from "../components/SearchBar";
+import Table, { Column, SortOption, TableOptions } from "../../components/Table";
+import ScheduledMessageTable from "../../components/ScheduledMessageTable";
+import ResultsTable from "../../components/ResultsTable";
+import SearchBar from "../../components/SearchBar";
 import {
   getPatientOutcomes,
   getPatient,
   getPatientMessages,
-} from "../api/patientApi";
+} from "../../api/patientApi";
 import { useQuery } from "react-query";
-import auth from "../api/core/auth";
+import auth from "../../api/core/auth";
 import { useParams } from "react-router-dom";
-import { SMSTile, Texter } from "../components/SMSTile";
+import { SMSTile, Texter } from "../../components/SMSTile/SMSTile";
 
 const PatientRecords: React.FC = () => {
   const onSearch = (query: string) => {
@@ -47,8 +46,6 @@ const PatientRecords: React.FC = () => {
     }
   );
 
-  console.log(messages);
-
   if (!loadingMessages && messages) {
     for (const row of messages as any) {
       if (row.sender === "PATIENT") {
@@ -68,6 +65,22 @@ const PatientRecords: React.FC = () => {
       </Title>
     );
   };
+
+  interface IPatient {
+    _id: string;
+    coachId: string;
+    coachName: string;
+    enabled: boolean;
+    firstName: string;
+    lastName: string;
+    language: string;
+    messagesSent:number;
+    phoneNumber: string;
+    prefTime: number;
+    reports: [];
+    responseCount: 0;
+    __v: number;
+  }
 
   return (
     <DashboardContainer>
@@ -100,7 +113,7 @@ const PatientRecords: React.FC = () => {
         <div className="column">
           {loadingMessages && loadingPatient && <div>Loading...</div>}
           {messages && patient && (
-            <SMSTile messages={messages as any} patient={patient as any}>
+            <SMSTile messages={messages as any} patient={patient as IPatient}>
               {" "}
             </SMSTile>
           )}
@@ -175,7 +188,6 @@ const Title = styled.h1`
   font-weight: 800;
   font-size: 36px;
   line-height: 49px;
-
   color: #404040;
 `;
 
@@ -185,9 +197,7 @@ const Subtitle = styled.p`
   font-weight: normal;
   font-size: 15px;
   line-height: 20px;
-
   color: #404040;
-
   padding: 30px 0;
 `;
 
@@ -209,20 +219,17 @@ const CheckBox = styled.input`
   height: 12px;
   left: 653.93px;
   top: 736px;
-
   font-family: Font Awesome 5 Free;
   font-style: normal;
   font-weight: normal;
   font-size: 10px;
   line-height: 11px;
   /* identical to box height */
-
   color: #404040;
 `;
 
 const ExportButton = styled.button`
   float: right;
-
   padding: 9px 20px;
   background-color: #f29da4 !important;
   font-size: 13px !important;
