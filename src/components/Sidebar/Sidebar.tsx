@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import secureAxios from "../api/core/apiClient";
+import secureAxios from "../../api/core/apiClient";
+import { IOutcomeArray } from "./ISidebar";
 
 const SidebarContainer = styled.div`
   display: flex;
@@ -98,7 +99,13 @@ function downloadCSV(data: any) {
   document.body.removeChild(a);
 }
 
-function outcomesToCSV(data: any) {
+export const quoteString = (string: string) => {
+  return typeof string === "string"
+    ? `"${string.replace(/"/g, '""')}"`
+    : string;
+};
+
+function outcomesToCSV(data: IOutcomeArray) {
   const csvRows = [];
   const headers = [
     "First Name",
@@ -113,14 +120,14 @@ function outcomesToCSV(data: any) {
   csvRows.push(headers.join(","));
   for (const row of data) {
     const values = [
-      row.firstName,
-      row.lastName,
-      row.patientID,
-      row.phoneNumber,
-      new Date(row.date).toString(),
-      row.response,
-      row.value,
-      row.alertType,
+      quoteString(row.firstName),
+      quoteString(row.lastName),
+      quoteString(row.patientID),
+      quoteString(row.phoneNumber),
+      quoteString(new Date(row.date).toString()),
+      quoteString(row.response),
+      quoteString(row.value),
+      quoteString(row.alertType),
     ];
     csvRows.push(values.join(","));
   }
