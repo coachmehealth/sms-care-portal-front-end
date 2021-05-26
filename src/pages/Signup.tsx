@@ -4,7 +4,7 @@ import { Formik, Field, Form, FieldAttributes } from "formik";
 import { signup } from "../api/userApi";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const FormContainer = styled.div`
   text-align: center;

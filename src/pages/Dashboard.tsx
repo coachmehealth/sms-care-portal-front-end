@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import auth from "../api/core/auth";
 import { fetchMe } from "../api/userApi";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const FlexContainer = styled.div`
   display: flex;
