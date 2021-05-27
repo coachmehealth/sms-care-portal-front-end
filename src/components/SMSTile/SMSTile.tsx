@@ -105,7 +105,7 @@ const SendButton = styled.button`
 const TextContainer = styled.div`
   padding: 20px;
   overflow-y: scroll;
-  max-height: 1100px;
+  max-height: 1150px;
 `;
 
 const SendBarContainer = styled.div``;
