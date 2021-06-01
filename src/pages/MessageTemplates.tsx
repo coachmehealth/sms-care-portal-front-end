@@ -21,7 +21,7 @@ const MessageTemplatePage = () => {
   let history = useHistory();
 
   const templateQuery = useQuery(
-    ["getTemplates", { accessToken: auth.getAccessToken() }],
+    ["getTemplates", { accessToken: auth.getAccessToken() },localStorage.getItem("email")],
     getTemplates,
     {
       refetchOnWindowFocus: false,

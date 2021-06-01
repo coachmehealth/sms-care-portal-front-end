@@ -118,6 +118,7 @@ const MessageTemplateForm: React.FC = () => {
     formData.append("messageTxt", text);
     formData.append("language", data.language);
     formData.append("type", data.type);
+    formData.append("creator", localStorage.getItem("email") || "no-creator");
     formData.append("media", selectedFile);
     secureAxios
       .post("/api/messageTemplate/newTemplate", formData)
@@ -162,10 +163,13 @@ const MessageTemplateForm: React.FC = () => {
           type="file"
           onChange={uploadFile}
         />
-        {selectedFile?.name ? 
-          <a style={{color:'black'}}>{selectedFile?.name.substring(0,5) + "..."}</a> :
-          <a style={{color:'black'}}>{""}</a>
-        }
+        {selectedFile?.name ? (
+          <a style={{ color: "black" }}>
+            {selectedFile?.name.substring(0, 5) + "..."}
+          </a>
+        ) : (
+          <a style={{ color: "black" }}>{""}</a>
+        )}
       </>
     );
   };
@@ -224,7 +228,9 @@ const MessageTemplateForm: React.FC = () => {
               </div>
             )}
             {!showEmoji && (
-              <a onClick={showEmojis} style={{marginLeft:'5px'}}>{String.fromCodePoint(0x1f60a)}</a>
+              <a onClick={showEmojis} style={{ marginLeft: "5px" }}>
+                {String.fromCodePoint(0x1f60a)}
+              </a>
             )}
 
             {clipInput()}

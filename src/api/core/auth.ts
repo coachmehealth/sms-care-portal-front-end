@@ -46,9 +46,10 @@ class Auth {
     return localStorage.getItem("authRefreshToken");
   }
 
-  localLogin(accessToken: string, refreshToken: string) {
+  localLogin(accessToken: string, refreshToken: string, email:string) {
     this.accessToken = accessToken;
     localStorage.setItem("authRefreshToken", refreshToken);
+    localStorage.setItem("email", email);
   }
 
   localLogout() {
@@ -61,7 +62,7 @@ class Auth {
     login({ email, password })
       .then((data) => {
         const { accessToken, refreshToken } = data as LoginResponse;
-        this.localLogin(accessToken, refreshToken);
+        this.localLogin(accessToken, refreshToken, email);
 
         this.loginSubscribers.forEach((subscriber) => {
           subscriber({ loggedIn: true });

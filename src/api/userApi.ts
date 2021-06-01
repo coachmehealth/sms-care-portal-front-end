@@ -103,11 +103,12 @@ const getPatients = (key: string, { accessToken }: { accessToken: string }) => {
 
 const getTemplates = (
   key: string,
-  { accessToken }: { accessToken: string }
+  { accessToken }: { accessToken: string },
+  email:string
 ) => {
   return new Promise((resolve, reject) => {
     secureAxios({
-      url: "/api/messageTemplate/templates",
+      url: `/api/messageTemplate/templates/${email}`,
       method: "GET",
       timeout: 0,
       headers: {
