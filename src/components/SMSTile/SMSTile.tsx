@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import secureAxios from "../api/core/apiClient";
-import TextSendBar from "../components/TextSendBar";
+import secureAxios from "api/core/apiClient";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
+import { IPatient } from "pages/PatientRecords/IPatientRecords";
 
 const SMSTileContainer = styled.div`
   display: flex;
@@ -79,7 +79,6 @@ const TextBubbleText = styled.div`
   padding-bottom: 5px;
   padding-left: 16px;
   padding-right: 16px;
-  text-align: center;
 `;
 const SendButton = styled.button`
   background-color: white;
@@ -106,7 +105,7 @@ const SendButton = styled.button`
 const TextContainer = styled.div`
   padding: 20px;
   overflow-y: scroll;
-  max-height: 936px;
+  max-height: 1150px;
 `;
 
 const SendBarContainer = styled.div``;
@@ -115,7 +114,7 @@ const SendInputContainer = styled.div``;
 
 const SendButtonContainer = styled.div``;
 
-const SendInput = styled.input`
+const SendInput = styled.textarea`
   background-color: #dde1e7;
   border-radius: 12px;
   padding: 8px 20px 8px 32px;
@@ -137,7 +136,7 @@ enum Texter {
 
 interface SMSProps {
   messages: any[];
-  patient: any;
+  patient: IPatient;
 }
 
 interface TextProps {
@@ -145,23 +144,33 @@ interface TextProps {
   type: Texter;
 }
 
+export const formatMessageNewLine = (message: String) => {
+  return message.split("\n").map((i, key) => {
+    return (
+      <div key={key} style={{ display: "flex" }}>
+        {i}
+      </div>
+    );
+  });
+};
+
 const TextBubble: React.FC<TextProps> = ({ message, type }: TextProps) => {
   if (type == Texter.PATIENT) {
     return (
       <TextBubblePatient>
-        <TextBubbleText> {message} </TextBubbleText>
+        <TextBubbleText> {formatMessageNewLine(message)} </TextBubbleText>
       </TextBubblePatient>
     );
   } else if (type == Texter.BOT) {
     return (
       <TextBubbleBot>
-        <TextBubbleText> {message} </TextBubbleText>
+        <TextBubbleText> {formatMessageNewLine(message)} </TextBubbleText>
       </TextBubbleBot>
     );
   } else {
     return (
       <TextBubbleCoach>
-        <TextBubbleText> {message} </TextBubbleText>
+        <TextBubbleText> {formatMessageNewLine(message)} </TextBubbleText>
       </TextBubbleCoach>
     );
   }
@@ -179,19 +188,19 @@ const SMSTile: React.FC<SMSProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const [showEmoji, setEmoji] = useState(false);
 
-  const showEmojis = (e: any) => {
+  const showEmojis = () => {
     setEmoji(true);
     document.addEventListener("click", closeEmojiMenu);
   };
 
-  const closeEmojiMenu = (e: any) => {
-    if (ref.current && !ref.current.contains(e.target)) {
+  const closeEmojiMenu = (e: MouseEvent) => {
+    if (ref.current && !ref.current.contains(e.target as Node)) {
       setEmoji(false);
       document.removeEventListener("click", closeEmojiMenu);
     }
   };
 
-  const textChange = (e: any) => {
+  const textChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewMsg(e.target.value);
   };
 
@@ -233,8 +242,8 @@ const SMSTile: React.FC<SMSProps> = ({
       </BoxTop>
       <TextContainer ref={textScrollRef}>
         <TextTable>
-          {messages.map((message) => (
-            <tr>
+          {messages.map((message, index) => (
+            <tr key={index}>
               <TextBubbleRow>
                 <TextBubble
                   message={message.message}
@@ -252,27 +261,34 @@ const SMSTile: React.FC<SMSProps> = ({
             e.preventDefault();
           }}
         >
-          <div className="field has-addons" style={{ padding: "20px" }}>
-            <div className="control" style={{ width: "100%" }}>
+          <div
+            className="field has-addons"
+            style={{ padding: "20px", height: "75px" }}
+          >
+            <div className="control" style={{ width: "100%", display: "flex" }}>
               <SendInput
                 name="query"
-                type="text"
                 placeholder="Enter your response..."
                 onChange={textChange}
                 value={newMsg}
               />
 
               {!showEmoji && (
-                <a onClick={showEmojis}>{String.fromCodePoint(0x1f60a)}</a>
+                <a
+                  onClick={showEmojis}
+                  style={{ alignSelf: "center", marginLeft: "9px" }}
+                >
+                  {String.fromCodePoint(0x1f60a)}
+                </a>
               )}
             </div>
-            <div className="control">
+            <div className="control" style={{ alignSelf: "center" }}>
               <SendButton type="submit" onClick={onSend}>
                 <i className="far fa-paper-plane" aria-hidden="true"></i>
               </SendButton>
             </div>
             {showEmoji && (
-              <div style={{ width: "355px", margin: "auto" }}>
+              <div style={{ position: "absolute", top: "75%" }}>
                 <Picker onSelect={addEmoji} title="Emoji Selector" />
               </div>
             )}

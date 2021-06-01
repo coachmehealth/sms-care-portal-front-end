@@ -154,7 +154,8 @@
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
-    ]
+    ],
+    "moduleDirectories": ["node_modules", "src"]
   },
   "babel": {
     "presets": [
