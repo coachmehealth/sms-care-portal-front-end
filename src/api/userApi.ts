@@ -104,7 +104,7 @@ const getPatients = (key: string, { accessToken }: { accessToken: string }) => {
 const getTemplates = (
   key: string,
   { accessToken }: { accessToken: string },
-  email:string
+  email: string
 ) => {
   return new Promise((resolve, reject) => {
     secureAxios({

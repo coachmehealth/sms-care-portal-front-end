@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import secureAxios from "../api/core/apiClient";
-import {
-  SortOption,
-  TableProps,
-} from "../components/Table";
+import secureAxios from "../../api/core/apiClient";
+import { SortOption, TableProps } from "../Table";
 
 const StyledTable = styled.table`
   width: 100%;
@@ -124,6 +121,7 @@ const MessageTemplateTable: React.FC<TableProps> = ({
   const [currentSort, setCurrentSort] = useState<SortOption | null>(
     defaultSort
   );
+
   const [sortedData, setSortedData] = useState<any[]>([...data]);
 
   const [page, setPage] = useState<number>(0);

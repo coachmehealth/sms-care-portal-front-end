@@ -1,27 +1,38 @@
 import React from "react";
-import styled from "styled-components";
-import { useHistory } from "react-router-dom";
-import MessageTemplateForm from "../components/MessageTemplateForm";
-import MessageTemplateTable from "../components/MessageTemplateTable";
+import MessageTemplateForm from "../components/messageTemplate/MessageTemplateForm";
+import MessageTemplateTable from "../components/messageTemplate/MessageTemplateTable";
 import { TableOptions } from "../components/Table";
 import { Column } from "../components/TwoColTable";
 import { useQuery } from "react-query";
 import auth from "../api/core/auth";
 import { getTemplates } from "../api/userApi";
 
-const FlexContainer = styled.div`
-  display: flex;
-`;
+const tableOptions: TableOptions = {
+  sortOptions: [],
+  sortsChoiceEnabled: false,
+  defaultPerPage: 10,
+};
 
-const ContentContainer = styled.div`
-  margin: 5%;
-`;
+const cols: Column[] = [
+  {
+    name: "Type",
+    data: "type",
+    key: "type",
+  },
+  {
+    name: "Language",
+    data: "language",
+    key: "language",
+  },
+];
 
 const MessageTemplatePage = () => {
-  let history = useHistory();
-
   const templateQuery = useQuery(
-    ["getTemplates", { accessToken: auth.getAccessToken() },localStorage.getItem("email")],
+    [
+      "getTemplates",
+      { accessToken: auth.getAccessToken() },
+      localStorage.getItem("email"),
+    ],
     getTemplates,
     {
       refetchOnWindowFocus: false,
@@ -42,25 +53,6 @@ const MessageTemplatePage = () => {
       )}
     </div>
   );
-};
-
-const cols: Column[] = [
-  {
-    name: "Type",
-    data: "type",
-    key: "type",
-  },
-  {
-    name: "Language",
-    data: "language",
-    key: "language",
-  },
-];
-
-const tableOptions: TableOptions = {
-  sortOptions: [],
-  sortsChoiceEnabled: false,
-  defaultPerPage: 10,
 };
 
 export default MessageTemplatePage;

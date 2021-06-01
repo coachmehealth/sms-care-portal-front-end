@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Field, FieldAttributes, Form, Formik } from "formik";
-import secureAxios from "../api/core/apiClient";
+import secureAxios from "../../api/core/apiClient";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
 import styled from "styled-components";

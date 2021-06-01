@@ -46,7 +46,7 @@ class Auth {
     return localStorage.getItem("authRefreshToken");
   }
 
-  localLogin(accessToken: string, refreshToken: string, email:string) {
+  localLogin(accessToken: string, refreshToken: string, email: string) {
     this.accessToken = accessToken;
     localStorage.setItem("authRefreshToken", refreshToken);
     localStorage.setItem("email", email);
