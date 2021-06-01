@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import Sidebar from "../components/Sidebar/Sidebar";
 import MessageTemplateForm from "../components/MessageTemplateForm";
 import MessageTemplateTable from "../components/MessageTemplateTable";
 import { TableOptions } from "../components/Table";

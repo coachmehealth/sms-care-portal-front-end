@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import secureAxios from "../api/core/apiClient";
 import {
   SortOption,
   TableProps,
-  TableOptions,
-  Column,
 } from "../components/Table";
 
 const StyledTable = styled.table`
@@ -169,10 +167,6 @@ const MessageTemplateTable: React.FC<TableProps> = ({
       sortedData.filter((tableRow) => rowID.localeCompare(tableRow._id) != 0)
     );
     secureAxios.post("/api/messageTemplate/deleteTemplate", reqData);
-  };
-
-  const handelEdit = (value: string, rowID: any) => {
-    alert(value);
   };
 
   return (

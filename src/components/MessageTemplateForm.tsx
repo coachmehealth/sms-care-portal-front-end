@@ -1,10 +1,8 @@
-import React, { useState, useRef } from "react";
-
+import React, { useState, useRef, useEffect } from "react";
 import { Field, FieldAttributes, Form, Formik } from "formik";
 import secureAxios from "../api/core/apiClient";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
-
 import styled from "styled-components";
 
 const inputStyles = {
@@ -93,7 +91,7 @@ const MessageTemplateForm: React.FC = () => {
   const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [isError, setError] = useState(false);
-
+  const [selectedFile, setSelectedFile] = useState<any>();
   const ref = useRef<HTMLDivElement>(null);
   const [text, setText] = useState("");
   const [showEmoji, setEmoji] = useState(false);
@@ -110,11 +108,19 @@ const MessageTemplateForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: {
+    messageTxt: string;
+    language: string;
+    type: string;
+  }) => {
     setLoading(true);
-    data.messageTxt = text;
+    const formData = new FormData();
+    formData.append("messageTxt", text);
+    formData.append("language", data.language);
+    formData.append("type", data.type);
+    formData.append("media", selectedFile);
     secureAxios
-      .post("/api/messageTemplate/newTemplate", data)
+      .post("/api/messageTemplate/newTemplate", formData)
       .then((res) => {
         setMessage(`Message template added successfully`);
         setError(false);
@@ -137,6 +143,33 @@ const MessageTemplateForm: React.FC = () => {
     setText(e.target.value);
   };
 
+  const uploadFile = (e: any) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const clipInput = () => {
+    return (
+      <>
+        <label htmlFor="upload-clip">
+          <a style={{ marginLeft: "5px", marginRight: "5px" }}>
+            {String.fromCodePoint(128206)}
+          </a>
+        </label>
+        <input
+          id="upload-clip"
+          style={{ display: "none" }}
+          name="media"
+          type="file"
+          onChange={uploadFile}
+        />
+        {selectedFile?.name ? 
+          <a style={{color:'black'}}>{selectedFile?.name.substring(0,5) + "..."}</a> :
+          <a style={{color:'black'}}>{""}</a>
+        }
+      </>
+    );
+  };
+
   return (
     <div
       style={{
@@ -156,7 +189,7 @@ const MessageTemplateForm: React.FC = () => {
       )}
 
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form>
+        <Form encType="multipart/form-data">
           <FieldWrapperSelect>
             <label>Select language: </label>
             <Field as="select" name="language">
@@ -191,8 +224,10 @@ const MessageTemplateForm: React.FC = () => {
               </div>
             )}
             {!showEmoji && (
-              <a onClick={showEmojis}>{String.fromCodePoint(0x1f60a)}</a>
+              <a onClick={showEmojis} style={{marginLeft:'5px'}}>{String.fromCodePoint(0x1f60a)}</a>
             )}
+
+            {clipInput()}
           </FieldWrapper>
 
           <Button
