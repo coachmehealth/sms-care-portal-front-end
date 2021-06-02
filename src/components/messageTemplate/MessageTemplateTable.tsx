@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import secureAxios from "../../api/core/apiClient";
 import { SortOption, TableProps } from "../Table";
-import { formatMessageNewLine } from "../../components/SMSTile/SMSTile";
 
 const StyledTable = styled.table`
   width: 100%;
@@ -209,7 +208,7 @@ const MessageTemplateTable: React.FC<TableProps> = ({
                   </TableCell>
                 ))}
                 <TableCell>
-                  <div>{formatMessageNewLine(row.text)}</div>
+                  <div style={{whiteSpace: "pre-wrap"}}>{row.text}</div>
                 </TableCell>
                 <TableCell>
                   {row?.media
