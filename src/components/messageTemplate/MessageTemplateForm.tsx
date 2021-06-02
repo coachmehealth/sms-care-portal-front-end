@@ -5,14 +5,6 @@ import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
 import styled from "styled-components";
 
-const inputStyles = {
-  backgroundColor: "rgb(221, 225, 231)",
-  borderRadius: "15px",
-  padding: "8px 20px 8px 32px",
-  border: "none",
-  width: "75%",
-};
-
 const SendInput = styled.textarea`
   background-color: #dde1e7;
   border-radius: 15px;
@@ -111,6 +103,7 @@ const MessageTemplateForm: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [text, setText] = useState("");
   const [showEmoji, setEmoji] = useState(false);
+  const [shareTemplate, setShareTemplate] = useState(false);
 
   const showEmojis = (e: any) => {
     setEmoji(true);
@@ -135,6 +128,7 @@ const MessageTemplateForm: React.FC = () => {
     formData.append("language", data.language);
     formData.append("type", data.type);
     formData.append("creator", localStorage.getItem("email") || "no-creator");
+    formData.append("public", JSON.stringify(shareTemplate)); //We can't append booleans to formData
     formData.append("media", selectedFile);
     secureAxios
       .post("/api/messageTemplate/newTemplate", formData)
@@ -239,6 +233,14 @@ const MessageTemplateForm: React.FC = () => {
               <option value="Yellow">Yellow</option>
               <option value="Red">Red</option>
             </Field>
+          </FieldWrapperSelect>
+
+          <FieldWrapperSelect>
+            <label>Share template with other coaches?: </label>
+            <input type="checkbox"
+              defaultChecked={shareTemplate}
+              onChange={() => setShareTemplate(!shareTemplate)}
+            />
           </FieldWrapperSelect>
 
           <FieldWrapper>

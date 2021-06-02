@@ -85,7 +85,6 @@ const PageIndicator = styled.p`
 `;
 
 const Button = styled.button`
-  width: 50%;
   background-color: #f29da4 !important;
   font-size: 13px !important;
   border-radius: 15px !important;
@@ -192,6 +191,8 @@ const MessageTemplateTable: React.FC<TableProps> = ({
               <HeaderCell key={col.key}> {col.name} </HeaderCell>
             ))}
             <HeaderCell>Message</HeaderCell>
+            <HeaderCell>Attachment</HeaderCell>
+            <HeaderCell>Public</HeaderCell>
             <HeaderCell>Delete</HeaderCell>
           </HeaderRow>
         </thead>
@@ -209,6 +210,19 @@ const MessageTemplateTable: React.FC<TableProps> = ({
                 ))}
                 <TableCell>
                   <div>{formatMessageNewLine(row.text)}</div>
+                </TableCell>
+                <TableCell>
+                  {row?.media
+                    ? row?.media.substr(
+                        row?.media.indexOf("/") + 1,
+                        row?.media.indexOf("-uudid-") - 8
+                      )
+                    : ""}
+                </TableCell>
+                <TableCell>
+                  {row.public
+                    ? String.fromCodePoint(128994)
+                    : String.fromCodePoint(128308)}
                 </TableCell>
                 <TableCell>
                   <Button onClick={() => handelDelete(row._id)}>Delete</Button>
