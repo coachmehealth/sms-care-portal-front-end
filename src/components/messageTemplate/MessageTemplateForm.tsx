@@ -13,6 +13,21 @@ const inputStyles = {
   width: "75%",
 };
 
+const SendInput = styled.textarea`
+  background-color: #dde1e7;
+  border-radius: 15px;
+  padding: 8px 20px 8px 32px;
+  border: none;
+  width: 75%;
+  box-shadow: 5px 5px 10px 0px rgba(221, 225, 231, 0.5);
+  margin-left: 55px;
+
+  &:focus {
+    outline: none;
+    box-shadow: inset 0px 0px 4px 0px rgb(99, 119, 146);
+  }
+`;
+
 const StyledField = styled.div`
   width: 70%;
   max-width: 768px;
@@ -37,6 +52,7 @@ const Button = styled.button`
   }
   margin: 10px;
 `;
+
 const initialValues = {
   messageTxt: "",
   language: "Spanish",
@@ -144,6 +160,11 @@ const MessageTemplateForm: React.FC = () => {
     setText(e.target.value);
   };
 
+  const newLineInText = () => {
+    console.log("enter new lien");
+    setText(text + "\n");
+  };
+
   const uploadFile = (e: any) => {
     setSelectedFile(e.target.files[0]);
   };
@@ -193,7 +214,15 @@ const MessageTemplateForm: React.FC = () => {
       )}
 
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form encType="multipart/form-data">
+        <Form
+          encType="multipart/form-data"
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              newLineInText();
+            }
+          }}
+        >
           <FieldWrapperSelect>
             <label>Select language: </label>
             <Field as="select" name="language">
@@ -213,27 +242,33 @@ const MessageTemplateForm: React.FC = () => {
           </FieldWrapperSelect>
 
           <FieldWrapper>
-            <Field
-              name="messageTxt"
-              style={inputStyles}
-              type="text"
-              placeholder="Message text"
-              className="form-field"
-              value={text}
-              onChange={textChange}
-            />
-            {showEmoji && (
-              <div ref={ref} style={{ width: "355px", margin: "auto" }}>
-                <Picker onSelect={addEmoji} title="Emoji Selector" />
-              </div>
-            )}
-            {!showEmoji && (
-              <a onClick={showEmojis} style={{ marginLeft: "5px" }}>
-                {String.fromCodePoint(0x1f60a)}
-              </a>
-            )}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <SendInput
+                name="messageTxt"
+                placeholder="Message text"
+                className="form-field"
+                onChange={textChange}
+                value={text}
+              />
 
-            {clipInput()}
+              {showEmoji && (
+                <div ref={ref} style={{ width: "355px", margin: "auto" }}>
+                  <Picker onSelect={addEmoji} title="Emoji Selector" />
+                </div>
+              )}
+              {!showEmoji && (
+                <a onClick={showEmojis} style={{ marginLeft: "5px" }}>
+                  {String.fromCodePoint(0x1f60a)}
+                </a>
+              )}
+              {clipInput()}
+            </div>
           </FieldWrapper>
 
           <Button

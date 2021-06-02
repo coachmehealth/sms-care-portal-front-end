@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import secureAxios from "../../api/core/apiClient";
 import { SortOption, TableProps } from "../Table";
+import { formatMessageNewLine } from "../../components/SMSTile/SMSTile";
 
 const StyledTable = styled.table`
   width: 100%;
@@ -170,7 +171,6 @@ const MessageTemplateTable: React.FC<TableProps> = ({
   return (
     <TableContainer>
       <StyledTitle>{title}</StyledTitle>
-
       {options.sortsChoiceEnabled &&
         options.sortOptions &&
         options.sortOptions.length > 1 && (
@@ -191,7 +191,7 @@ const MessageTemplateTable: React.FC<TableProps> = ({
             {columns.map((col) => (
               <HeaderCell key={col.key}> {col.name} </HeaderCell>
             ))}
-            <HeaderCell>Edit</HeaderCell>
+            <HeaderCell>Message</HeaderCell>
             <HeaderCell>Delete</HeaderCell>
           </HeaderRow>
         </thead>
@@ -208,7 +208,7 @@ const MessageTemplateTable: React.FC<TableProps> = ({
                   </TableCell>
                 ))}
                 <TableCell>
-                  <div>{row.text}</div>
+                  <div>{formatMessageNewLine(row.text)}</div>
                 </TableCell>
                 <TableCell>
                   <Button onClick={() => handelDelete(row._id)}>Delete</Button>

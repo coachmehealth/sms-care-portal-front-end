@@ -110,10 +110,6 @@ const TextContainer = styled.div`
 
 const SendBarContainer = styled.div``;
 
-const SendInputContainer = styled.div``;
-
-const SendButtonContainer = styled.div``;
-
 const SendInput = styled.textarea`
   background-color: #dde1e7;
   border-radius: 12px;
