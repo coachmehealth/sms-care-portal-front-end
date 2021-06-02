@@ -160,7 +160,11 @@ const MessageTemplateForm: React.FC = () => {
   };
 
   const uploadFile = (e: any) => {
-    setSelectedFile(e.target.files[0]);
+    if(e.target.files[0].size > 1000000){
+      alert("File is too big, make sure your file is under 1MB")
+    } else{
+      setSelectedFile(e.target.files[0]);
+    }
   };
 
   const clipInput = () => {
