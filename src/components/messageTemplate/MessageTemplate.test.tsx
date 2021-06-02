@@ -35,7 +35,17 @@ test("MessageTemplateTable renders without error", async () => {
       text: "I have a message with a screenshot with creator",
       type: "Yellow",
       creator: "test@coachme.net",
+      public: false,
       media: "uploads/c132874d-2743-45a9-b895-75cd177df7f7.png",
+      __v: 0,
+    },
+    {
+      _id: "60b6a01c8af2766343d5734z",
+      language: "English",
+      text: "I have a message to myself",
+      type: "Yellow",
+      creator: "test@coachme.net",
+      public: false,
       __v: 0,
     },
   ];

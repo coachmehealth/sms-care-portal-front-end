@@ -237,7 +237,8 @@ const MessageTemplateForm: React.FC = () => {
 
           <FieldWrapperSelect>
             <label>Share template with other coaches?: </label>
-            <input type="checkbox"
+            <input
+              type="checkbox"
               defaultChecked={shareTemplate}
               onChange={() => setShareTemplate(!shareTemplate)}
             />
