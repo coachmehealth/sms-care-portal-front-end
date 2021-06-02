@@ -79,6 +79,7 @@ const TextBubbleText = styled.div`
   padding-bottom: 5px;
   padding-left: 16px;
   padding-right: 16px;
+  white-space: pre-wrap;
 `;
 const SendButton = styled.button`
   background-color: white;
@@ -144,33 +145,23 @@ interface TextProps {
   type: Texter;
 }
 
-export const formatMessageNewLine = (message: String) => {
-  return message.split("\n").map((i, key) => {
-    return (
-      <div key={key} style={{ display: "flex" }}>
-        {i}
-      </div>
-    );
-  });
-};
-
 const TextBubble: React.FC<TextProps> = ({ message, type }: TextProps) => {
   if (type == Texter.PATIENT) {
     return (
       <TextBubblePatient>
-        <TextBubbleText> {formatMessageNewLine(message)} </TextBubbleText>
+        <TextBubbleText> {message} </TextBubbleText>
       </TextBubblePatient>
     );
   } else if (type == Texter.BOT) {
     return (
       <TextBubbleBot>
-        <TextBubbleText> {formatMessageNewLine(message)} </TextBubbleText>
+        <TextBubbleText> {message} </TextBubbleText>
       </TextBubbleBot>
     );
   } else {
     return (
       <TextBubbleCoach>
-        <TextBubbleText> {formatMessageNewLine(message)} </TextBubbleText>
+        <TextBubbleText> {message} </TextBubbleText>
       </TextBubbleCoach>
     );
   }
