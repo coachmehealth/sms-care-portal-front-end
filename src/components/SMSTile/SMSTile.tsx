@@ -50,6 +50,13 @@ const TextBubblePatient = styled.div`
   color: #404040;
 `;
 
+const TextBubblePatientGlucose = styled.div`
+  background: #bfb5ff;
+  border-radius: 0px 15px 15px 15px;
+  float: left;
+  color: #404040;
+`;
+
 const TextBubbleBot = styled.div`
   background: #a6cee3;
   border-radius: 15px 0px 15px 15px;
@@ -81,6 +88,7 @@ const TextBubbleText = styled.div`
   padding-right: 16px;
   white-space: pre-wrap;
 `;
+
 const SendButton = styled.button`
   background-color: white;
   font-size: 15px !important;
@@ -143,10 +151,22 @@ interface SMSProps {
 interface TextProps {
   message: string;
   type: Texter;
+  receivedWith: string;
 }
 
-const TextBubble: React.FC<TextProps> = ({ message, type }: TextProps) => {
+const TextBubble: React.FC<TextProps> = ({
+  message,
+  type,
+  receivedWith,
+}: TextProps) => {
   if (type == Texter.PATIENT) {
+    if (receivedWith === "Glucose") {
+      return (
+        <TextBubblePatientGlucose>
+          <TextBubbleText> {message} </TextBubbleText>
+        </TextBubblePatientGlucose>
+      );
+    }
     return (
       <TextBubblePatient>
         <TextBubbleText> {message} </TextBubbleText>
@@ -239,6 +259,7 @@ const SMSTile: React.FC<SMSProps> = ({
                 <TextBubble
                   message={message.message}
                   type={message.type}
+                  receivedWith={message?.receivedWith || ""}
                 ></TextBubble>
               </TextBubbleRow>
             </tr>
