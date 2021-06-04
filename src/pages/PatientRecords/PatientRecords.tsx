@@ -189,6 +189,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         background-color: #E5E5E5;
         padding-top: 20px !important;
+        height: auto;
     }
 `;
 

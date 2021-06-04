@@ -4,6 +4,8 @@ import secureAxios from "api/core/apiClient";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
 import { IPatient } from "pages/PatientRecords/IPatientRecords";
+import { DatePicker, message } from "antd";
+import "antd/dist/antd.css";
 
 const SMSTileContainer = styled.div`
   display: flex;
@@ -13,6 +15,8 @@ const SMSTileContainer = styled.div`
   flex-direction: column;
   background: #ffffff;
   height: 100%;
+  width: 90%;
+  margin-left: -3px;
 `;
 
 const PhoneNumber = styled.p`
@@ -193,6 +197,8 @@ const SMSTile: React.FC<SMSProps> = ({
 }: SMSProps) => {
   const [newMsg, setNewMsg] = useState<string>("");
   const [messages, setMessages] = useState([...messagesProp]);
+  const [showDate, setShowDate] = useState(false);
+  const [scheduleDate, setScheduleDate] = useState<any>();
 
   // scrolls text to bottom
   const textScrollRef = useRef(null);
@@ -226,11 +232,17 @@ const SMSTile: React.FC<SMSProps> = ({
     }
   }, [textScrollRef.current, messages]);
 
+  const toggleShowDate = () => {
+    setShowDate(!showDate);
+    setScheduleDate("");
+  };
+
   const onSend = () => {
     const data = {
       to: patient.phoneNumber,
       message: newMsg,
       patientID: patient._id,
+      scheduled: scheduleDate?._d || ""
     };
     secureAxios
       .post("/api/twilio/sendMessage", data)
@@ -241,6 +253,13 @@ const SMSTile: React.FC<SMSProps> = ({
       .catch((err) => {
         alert(err);
       });
+  };
+
+  const handleChange = (value: any) => {
+    message.info(
+      `Selected Date: ${value ? value.format("YYYY-MM-DD HH:mm") : "None"}`
+    );
+    setScheduleDate(value);
   };
 
   return (
@@ -277,6 +296,11 @@ const SMSTile: React.FC<SMSProps> = ({
             className="field has-addons"
             style={{ padding: "20px", height: "75px" }}
           >
+            <div className="control" style={{ marginLeft: '-20px', paddingRight: '5px' }}>
+              <SendButton type="button" onClick={toggleShowDate}>
+                <i className="far fa-calendar" aria-hidden="true"></i>
+              </SendButton>
+            </div>
             <div className="control" style={{ width: "100%", display: "flex" }}>
               <SendInput
                 name="query"
@@ -294,6 +318,7 @@ const SMSTile: React.FC<SMSProps> = ({
                 </a>
               )}
             </div>
+
             <div className="control" style={{ alignSelf: "center" }}>
               <SendButton type="submit" onClick={onSend}>
                 <i className="far fa-paper-plane" aria-hidden="true"></i>
@@ -302,6 +327,13 @@ const SMSTile: React.FC<SMSProps> = ({
             {showEmoji && (
               <div style={{ position: "absolute", top: "75%" }}>
                 <Picker onSelect={addEmoji} title="Emoji Selector" />
+              </div>
+            )}
+            {showDate && (
+              <div
+                style={{ position: "absolute", marginLeft:'-15px', marginTop:'-40px'}}
+              >
+                <DatePicker onChange={handleChange} showTime/>
               </div>
             )}
           </div>
