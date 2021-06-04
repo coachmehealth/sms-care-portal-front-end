@@ -228,7 +228,9 @@ const SMSTile: React.FC<SMSProps> = ({
 
   useEffect(() => {
     if (textScrollRef.current) {
-      (textScrollRef.current! as any).scrollTop = (textScrollRef.current! as any).scrollHeight;
+      (textScrollRef.current! as any).scrollTop = (
+        textScrollRef.current! as any
+      ).scrollHeight;
     }
   }, [textScrollRef.current, messages]);
 
@@ -242,7 +244,7 @@ const SMSTile: React.FC<SMSProps> = ({
       to: patient.phoneNumber,
       message: newMsg,
       patientID: patient._id,
-      scheduled: scheduleDate?._d || ""
+      scheduled: scheduleDate?._d || "",
     };
     secureAxios
       .post("/api/twilio/sendMessage", data)
@@ -296,7 +298,10 @@ const SMSTile: React.FC<SMSProps> = ({
             className="field has-addons"
             style={{ padding: "20px", height: "75px" }}
           >
-            <div className="control" style={{ marginLeft: '-20px', paddingRight: '5px' }}>
+            <div
+              className="control"
+              style={{ marginLeft: "-20px", paddingRight: "5px" }}
+            >
               <SendButton type="button" onClick={toggleShowDate}>
                 <i className="far fa-calendar" aria-hidden="true"></i>
               </SendButton>
@@ -331,9 +336,13 @@ const SMSTile: React.FC<SMSProps> = ({
             )}
             {showDate && (
               <div
-                style={{ position: "absolute", marginLeft:'-15px', marginTop:'-40px'}}
+                style={{
+                  position: "absolute",
+                  marginLeft: "-15px",
+                  marginTop: "-40px",
+                }}
               >
-                <DatePicker onChange={handleChange} showTime/>
+                <DatePicker onChange={handleChange} showTime />
               </div>
             )}
           </div>

@@ -140,11 +140,11 @@ const cols: Column[] = [
     // need to create logic for the text color, possible do it down in activetext
     name: "Analysis",
     data: (row) =>
-      classifyNumeric(row.value) == "Green" ? (
+      classifyNumeric(row.value) === "Green" ? (
         <ActiveTextG>{classifyNumeric(row.value)}</ActiveTextG>
-      ) : classifyNumeric(row.value) == "Yellow" ? (
+      ) : classifyNumeric(row.value) === "Yellow" ? (
         <ActiveTextY>{classifyNumeric(row.value)}</ActiveTextY>
-      ) : classifyNumeric(row.value) == "Red" ? (
+      ) : classifyNumeric(row.value) === "Red" ? (
         <ActiveTextR>{classifyNumeric(row.value)}</ActiveTextR>
       ) : (
         <ActiveTextB>{classifyNumeric(row.value)}</ActiveTextB>
@@ -191,44 +191,6 @@ const GlobalStyle = createGlobalStyle`
         padding-top: 20px !important;
         height: auto;
     }
-`;
-
-const SearchBarContainer = styled.div``;
-
-const CheckBox = styled.input`
-  width: 11.51px;
-  height: 12px;
-  left: 653.93px;
-  top: 736px;
-  font-family: Font Awesome 5 Free;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 10px;
-  line-height: 11px;
-  /* identical to box height */
-  color: #404040;
-`;
-
-const ExportButton = styled.button`
-  float: right;
-  padding: 9px 20px;
-  background-color: #f29da4 !important;
-  font-size: 13px !important;
-  border-radius: 15px !important;
-  color: white !important;
-  border: none !important;
-  font-weight: 600;
-
-  &:hover {
-    box-shadow: 5px 5px 10px rgba(221, 225, 231, 1) !important;
-    border: none !important;
-    cursor: pointer;
-  }
-
-  &:focus {
-    box-shadow: 5px 5px 10px rgba(221, 225, 231, 1) !important;
-    border: none !important;
-  }
 `;
 
 const ActiveTextG = styled.p`
@@ -301,35 +263,6 @@ function classifyNumeric(input: any) {
   } else {
     return ">=301";
   }
-}
-
-function outcomesToCSV(data: any) {
-  const csvRows = [];
-  const headers = ["Type", "Measurement", "Classification", "Date"];
-  csvRows.push(headers.join(","));
-  for (const row of data) {
-    const values = [
-      "Blood Glucose",
-      row.value,
-      classifyNumeric(row.value),
-      new Date(row.date).toString(),
-    ];
-    csvRows.push(values.join(","));
-  }
-  return csvRows.join("\n");
-}
-
-function downloadCSV(data: string, id: string) {
-  const csvObj = new Blob([data], { type: "text/csv" });
-  const url = window.URL.createObjectURL(csvObj);
-  const a = document.createElement("a");
-  a.setAttribute("hidden", "");
-  a.setAttribute("href", url);
-  const fileName = "Patient_".concat(id, "_Outcomes.csv");
-  a.setAttribute("download", fileName);
-  document.body.append(a);
-  a.click();
-  document.body.removeChild(a);
 }
 
 export default PatientRecords;

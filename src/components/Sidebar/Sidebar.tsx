@@ -69,7 +69,7 @@ const getCSV = () => {
       for (var i = 0; i < res.data.outcomes.length; i++) {
         for (var j = 0; j < res.data.patients.length; j++) {
           if (
-            res.data.outcomes[i].patientID.toString() ==
+            res.data.outcomes[i].patientID.toString() ===
             res.data.patients[j]._id.toString()
           ) {
             res.data.outcomes[i].firstName = res.data.patients[j].firstName;
