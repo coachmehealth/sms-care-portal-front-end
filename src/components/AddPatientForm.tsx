@@ -81,6 +81,10 @@ const EnabledInput = styled.input`
   margin: 0 10px 20px 20px;
 `;
 
+const OutreachInput = styled.input`
+  margin: 0 10px 20px 12px;
+`;
+
 const initialValues = {
   firstName: "",
   lastName: "",
@@ -121,6 +125,8 @@ const AddPatientForm: React.FC = () => {
   const [phoneNum, setPhoneNum] = useState("");
   const [coachId, setCoachId] = useState("");
   const [isEnabled, setEnabled] = useState(true);
+  const [isOutreach, setOutreach] = useState(true);
+  const [clinic, setClinic] = useState("");
   const [msgTime, setTime] = useState("00:00");
 
   const [coachName, setCoachName] = useState("");
@@ -139,6 +145,13 @@ const AddPatientForm: React.FC = () => {
         isEnabled,
         msgTime,
         coachName,
+        clinic,
+        outreach: {
+          outreach: isOutreach,
+          more: false,
+          yes: false,
+          lastMessageSent: 0,
+        },
       })
       .then((res) => {
         setMessage(
@@ -244,6 +257,17 @@ const AddPatientForm: React.FC = () => {
             />
           </FieldWrapper>
 
+          <FieldWrapper icon="fa-hospital">
+            <Field
+              name="clinic"
+              style={inputStyles}
+              type="text"
+              placeholder="Refered clinic"
+              className="form-field"
+              onInput={(e: any) => setClinic(e.target.value)}
+            />
+          </FieldWrapper>
+
           <FieldWrapper icon="fa-clock">
             <Field
               name="msgTime"
@@ -280,6 +304,19 @@ const AddPatientForm: React.FC = () => {
                 name="enabled"
                 checked={isEnabled}
                 onChange={(e) => setEnabled(e.target.checked)}
+              />
+            </label>
+          </div>
+
+          <div>
+            <label>
+              {" "}
+              Outreach:
+              <OutreachInput
+                type="checkbox"
+                name="outreach"
+                checked={isOutreach}
+                onChange={(e) => setOutreach(e.target.checked)}
               />
             </label>
           </div>
