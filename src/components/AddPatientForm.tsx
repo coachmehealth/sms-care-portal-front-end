@@ -150,7 +150,8 @@ const AddPatientForm: React.FC = () => {
           outreach: isOutreach,
           more: false,
           yes: false,
-          lastMessageSent: 0,
+          lastMessageSent: "0",
+          lastDate: new Date(),
         },
       })
       .then((res) => {
