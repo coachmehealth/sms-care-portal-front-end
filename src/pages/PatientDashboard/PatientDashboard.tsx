@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import Table, { Column, SortOption, TableOptions } from "../components/Table";
-import SearchBar from "../components/SearchBar";
-import EnableSwitch from "../components/EnableSwitch";
+import Table, {
+  Column,
+  SortOption,
+  TableOptions,
+} from "../../components/Table";
+import SearchBar from "../../components/SearchBar";
+import EnableSwitch from "../../components/EnableSwitch";
+import OutreachAlert from "./components/OutreachAlert";
 import { useQuery } from "react-query";
-import auth from "../api/core/auth";
-import { fetchMe, getPatients } from "../api/userApi";
+import auth from "../../api/core/auth";
+import { fetchMe, getPatients } from "../../api/userApi";
 
 const DashboardContainer = styled.div`
   padding: 20px;
@@ -138,6 +143,17 @@ const tableOptions: TableOptions = {
 
 const cols: Column[] = [
   {
+    name: "Outreach call",
+    data: (row) => (
+      <OutreachAlert
+        _id={row._id}
+        outreachYesStatus={row?.outreach?.yes || false}
+        pending={row?.outreach?.pending || false}
+      />
+    ),
+    key: "outreach",
+  },
+  {
     name: "Status",
     data: "status",
     key: "status",
@@ -196,26 +212,6 @@ const cols: Column[] = [
   },
 ];
 
-const UnreadButton = styled.button`
-  width: 100%;
-  background-color: #fad246 !important;
-  font-size: 13px !important;
-  border-radius: 15px !important;
-  color: white !important;
-  border: none !important;
-  font-weight: 600;
-
-  &:hover {
-    box-shadow: 5px 5px 10px rgba(221, 225, 231, 1) !important;
-    border: none !important;
-  }
-
-  &:focus {
-    box-shadow: 5px 5px 10px rgba(221, 225, 231, 1) !important;
-    border: none !important;
-  }
-`;
-
 const ViewButton = styled.button`
   width: 100%;
   background-color: #f29da4 !important;
@@ -234,11 +230,6 @@ const ViewButton = styled.button`
     box-shadow: 5px 5px 10px rgba(221, 225, 231, 1) !important;
     border: none !important;
   }
-`;
-
-const ActiveText = styled.p`
-  color: #b4d983;
-  font-weight: 800;
 `;
 
 export default PatientDashboard;

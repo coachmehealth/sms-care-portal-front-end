@@ -152,6 +152,7 @@ const AddPatientForm: React.FC = () => {
           yes: false,
           lastMessageSent: "0",
           lastDate: new Date(),
+          pending: true,
         },
       })
       .then((res) => {

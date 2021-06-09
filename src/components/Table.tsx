@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 export interface SortOption {
   // the field in data to use
@@ -74,6 +74,7 @@ const TableCell = styled.td`
 
 const BodyRow = styled.tr`
   border-bottom: 1px solid #c4c4c4;
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 const TableContainer = styled.div`
@@ -140,6 +141,12 @@ const Table: React.FC<TableProps> = ({
   options,
   query,
 }: TableProps) => {
+  const getBodyRowTheme = (backgroundColor: string) => {
+    return {
+      backgroundColor: backgroundColor,
+    };
+  };
+
   // set default sort to marked default, or null if no sorts provided
   const defaultSort =
     options.sortOptions && options.sortOptions.length >= 1
@@ -230,15 +237,21 @@ const Table: React.FC<TableProps> = ({
           {sortedData
             .slice(page * perPage, (page + 1) * perPage)
             .map((row: any, ind) => (
-              <BodyRow key={`${ind}`}>
-                {columns.map((col) => (
-                  <TableCell key={`${col.key}-${ind}`}>
-                    {typeof col.data == "string"
-                      ? row[col.data]
-                      : col.data(row)}
-                  </TableCell>
-                ))}
-              </BodyRow>
+              <ThemeProvider
+                theme={getBodyRowTheme(
+                  row?.outreach?.yes && row?.outreach?.pending ? "red" : "white"
+                )}
+              >
+                <BodyRow key={`${ind}`}>
+                  {columns.map((col) => (
+                    <TableCell key={`${col.key}-${ind}`}>
+                      {typeof col.data == "string"
+                        ? row[col.data]
+                        : col.data(row)}
+                    </TableCell>
+                  ))}
+                </BodyRow>
+              </ThemeProvider>
             ))}
         </tbody>
       </StyledTable>
