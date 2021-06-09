@@ -151,6 +151,7 @@ const AddPatientForm: React.FC = () => {
           more: false,
           yes: false,
           lastMessageSent: "0",
+          messageCount: 0,
           lastDate: new Date(),
           pending: true,
         },
