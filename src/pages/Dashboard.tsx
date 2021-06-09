@@ -7,6 +7,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 
 const FlexContainer = styled.div`
   display: flex;
+  margin-left: 10%;
 `;
 
 const ContentContainer = styled.div`
