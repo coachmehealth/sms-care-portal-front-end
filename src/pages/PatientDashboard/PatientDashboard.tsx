@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import Table, {
-  Column,
-  SortOption,
-  TableOptions,
-} from "../../components/Table";
+import Table, { Column, TableOptions } from "../../components/Table";
 import SearchBar from "../../components/SearchBar";
 import EnableSwitch from "../../components/EnableSwitch";
 import OutreachAlert from "./components/OutreachAlert";
+import OutreachCheckbox from "./components/OutreachCheckbox";
 import { useQuery } from "react-query";
 import auth from "../../api/core/auth";
 import { fetchMe, getPatients } from "../../api/userApi";
@@ -196,6 +193,16 @@ const cols: Column[] = [
     name: "Enable/Disable",
     data: (row) => <EnableSwitch _id={row._id} enabled={row.enabled} />,
     key: "unread",
+  },
+  {
+    name: "Outreach",
+    data: (row) => (
+      <OutreachCheckbox
+        _id={row._id}
+        outreachStatus={row?.outreach?.outreach || false}
+      />
+    ),
+    key: "outreach",
   },
   {
     name: "",

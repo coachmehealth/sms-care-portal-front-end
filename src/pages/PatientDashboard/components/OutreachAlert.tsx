@@ -2,17 +2,17 @@ import React from "react";
 import secureAxios from "../../../api/core/apiClient";
 import "remixicon/fonts/remixicon.css";
 
-export interface CheckedProps {
+export interface OutreachProps {
   _id: string;
   outreachYesStatus: boolean;
   pending: boolean;
 }
 
-const OutreachAlert: React.FC<CheckedProps> = ({
+const OutreachAlert: React.FC<OutreachProps> = ({
   _id,
   outreachYesStatus,
   pending,
-}: CheckedProps) => {
+}: OutreachProps) => {
   const handleChange = () => {
     const confirmation = window.confirm("Did you call the patient?");
     if (confirmation) {
