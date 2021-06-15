@@ -25,4 +25,4 @@ jobs:
       - name: Compile Typescript
         run: npx tsc
       - name: Lint Codebase
-        run: yarn lint
+        run: yarn lint --fix
