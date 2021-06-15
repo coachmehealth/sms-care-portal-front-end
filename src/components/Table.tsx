@@ -148,9 +148,8 @@ const Table: React.FC<TableProps> = ({
         })[0]
       : null;
 
-  const [currentSort, setCurrentSort] = useState<SortOption | null>(
-    defaultSort
-  );
+  const [currentSort, setCurrentSort] =
+    useState<SortOption | null>(defaultSort);
   const [sortedData, setSortedData] = useState<any[]>([...data]);
 
   /* Subin's comment: I think you need another state called filtered data. Imagine a use case where we search for the data, get it filtered, but now we
