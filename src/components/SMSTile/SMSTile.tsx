@@ -151,16 +151,16 @@ interface SMSProps {
 interface TextProps {
   message: string;
   type: Texter;
-  receivedWith: string;
+  receivingNumber: string;
 }
 
 const TextBubble: React.FC<TextProps> = ({
   message,
   type,
-  receivedWith,
+  receivingNumber,
 }: TextProps) => {
   if (type == Texter.PATIENT) {
-    if (receivedWith === "Glucose") {
+    if (receivingNumber === "Glucose") {
       return (
         <TextBubblePatientGlucose>
           <TextBubbleText> {message} </TextBubbleText>
@@ -222,7 +222,9 @@ const SMSTile: React.FC<SMSProps> = ({
 
   useEffect(() => {
     if (textScrollRef.current) {
-      (textScrollRef.current! as any).scrollTop = (textScrollRef.current! as any).scrollHeight;
+      (textScrollRef.current! as any).scrollTop = (
+        textScrollRef.current! as any
+      ).scrollHeight;
     }
   }, [textScrollRef.current, messages]);
 
@@ -259,7 +261,7 @@ const SMSTile: React.FC<SMSProps> = ({
                 <TextBubble
                   message={message.message}
                   type={message.type}
-                  receivedWith={message?.receivedWith || ""}
+                  receivingNumber={message?.receivedWith || ""}
                 ></TextBubble>
               </TextBubbleRow>
             </tr>
