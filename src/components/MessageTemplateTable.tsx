@@ -123,8 +123,7 @@ const MessageTemplateTable: React.FC<TableProps> = ({
       : null;
 
   const [show, setShow] = useState(false);
-  const [currentSort, setCurrentSort] =
-    useState<SortOption | null>(defaultSort);
+  const [currentSort, setCurrentSort] = useState<SortOption | null>(defaultSort);
   const [sortedData, setSortedData] = useState<any[]>([...data]);
 
   const [page, setPage] = useState<number>(0);
