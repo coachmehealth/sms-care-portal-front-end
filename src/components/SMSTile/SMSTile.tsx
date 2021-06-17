@@ -123,10 +123,6 @@ const TextContainer = styled.div`
 
 const SendBarContainer = styled.div``;
 
-const SendInputContainer = styled.div``;
-
-const SendButtonContainer = styled.div``;
-
 const SendInput = styled.textarea`
   background-color: #dde1e7;
   border-radius: 12px;
@@ -155,36 +151,36 @@ interface SMSProps {
 interface TextProps {
   message: string;
   type: Texter;
-  receivedWith: string;
+  receivingNumber: string;
 }
 
 const TextBubble: React.FC<TextProps> = ({
   message,
   type,
-  receivedWith,
+  receivingNumber,
 }: TextProps) => {
-  if (type == Texter.PATIENT) {
-    if (receivedWith === "Glucose") {
+  if (type === Texter.PATIENT) {
+    if (receivingNumber === "Glucose") {
       return (
-        <TextBubblePatientGlucose>
+        <TextBubblePatientGlucose data-testid="TextBubblePatientGlucose">
           <TextBubbleText> {message} </TextBubbleText>
         </TextBubblePatientGlucose>
       );
     }
     return (
-      <TextBubblePatient>
+      <TextBubblePatient data-testid="TextBubblePatientGeneral">
         <TextBubbleText> {message} </TextBubbleText>
       </TextBubblePatient>
     );
-  } else if (type == Texter.BOT) {
+  } else if (type === Texter.BOT) {
     return (
-      <TextBubbleBot>
+      <TextBubbleBot data-testid="TextBubbleBot">
         <TextBubbleText> {message} </TextBubbleText>
       </TextBubbleBot>
     );
   } else {
     return (
-      <TextBubbleCoach>
+      <TextBubbleCoach data-testid="TextBubbleCoach">
         <TextBubbleText> {message} </TextBubbleText>
       </TextBubbleCoach>
     );
@@ -257,7 +253,7 @@ const SMSTile: React.FC<SMSProps> = ({
       });
   };
 
-  const handleChange = (value: any) => {
+  const handleDateChange = (value: any) => {
     message.info(
       `Selected Date: ${value ? value.format("YYYY-MM-DD HH:mm") : "None"}`
     );
@@ -280,7 +276,7 @@ const SMSTile: React.FC<SMSProps> = ({
                 <TextBubble
                   message={message.message}
                   type={message.type}
-                  receivedWith={message?.receivedWith || ""}
+                  receivingNumber={message?.receivedWith || ""}
                 ></TextBubble>
               </TextBubbleRow>
             </tr>
@@ -312,6 +308,7 @@ const SMSTile: React.FC<SMSProps> = ({
                 placeholder="Enter your response..."
                 onChange={textChange}
                 value={newMsg}
+                data-testid="SendInput"
               />
 
               {!showEmoji && (
@@ -342,7 +339,11 @@ const SMSTile: React.FC<SMSProps> = ({
                   marginTop: "-40px",
                 }}
               >
-                <DatePicker onChange={handleChange} showTime />
+                <DatePicker
+                  onChange={handleDateChange}
+                  showTime
+                  data-testid="DatePicker"
+                />
               </div>
             )}
           </div>
@@ -352,4 +353,4 @@ const SMSTile: React.FC<SMSProps> = ({
   );
 };
 
-export { SMSTile, Texter };
+export { SMSTile, Texter, TextBubble };
