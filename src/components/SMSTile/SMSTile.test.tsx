@@ -66,7 +66,7 @@ describe("SMSTile.txt tests", () => {
     );
     const inputText = `I have 
     a nice dog`;
-    const sendInput = queryByTestId("SendInput");
+    const sendInput = queryByTestId("SendInput") as HTMLInputElement;
     if (sendInput) {
       fireEvent.change(sendInput, {
         target: {
