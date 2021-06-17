@@ -119,10 +119,6 @@ const TextContainer = styled.div`
 
 const SendBarContainer = styled.div``;
 
-const SendInputContainer = styled.div``;
-
-const SendButtonContainer = styled.div``;
-
 const SendInput = styled.textarea`
   background-color: #dde1e7;
   border-radius: 12px;
@@ -159,28 +155,28 @@ const TextBubble: React.FC<TextProps> = ({
   type,
   receivingNumber,
 }: TextProps) => {
-  if (type == Texter.PATIENT) {
+  if (type === Texter.PATIENT) {
     if (receivingNumber === "Glucose") {
       return (
-        <TextBubblePatientGlucose>
+        <TextBubblePatientGlucose data-testid="TextBubblePatientGlucose">
           <TextBubbleText> {message} </TextBubbleText>
         </TextBubblePatientGlucose>
       );
     }
     return (
-      <TextBubblePatient>
+      <TextBubblePatient data-testid="TextBubblePatientGeneral">
         <TextBubbleText> {message} </TextBubbleText>
       </TextBubblePatient>
     );
-  } else if (type == Texter.BOT) {
+  } else if (type === Texter.BOT) {
     return (
-      <TextBubbleBot>
+      <TextBubbleBot data-testid="TextBubbleBot">
         <TextBubbleText> {message} </TextBubbleText>
       </TextBubbleBot>
     );
   } else {
     return (
-      <TextBubbleCoach>
+      <TextBubbleCoach data-testid="TextBubbleCoach">
         <TextBubbleText> {message} </TextBubbleText>
       </TextBubbleCoach>
     );
@@ -285,6 +281,7 @@ const SMSTile: React.FC<SMSProps> = ({
                 placeholder="Enter your response..."
                 onChange={textChange}
                 value={newMsg}
+                data-testid="SendInput"
               />
 
               {!showEmoji && (
@@ -313,4 +310,4 @@ const SMSTile: React.FC<SMSProps> = ({
   );
 };
 
-export { SMSTile, Texter };
+export { SMSTile, Texter, TextBubble };
