@@ -228,6 +228,7 @@ const SMSTile: React.FC<SMSProps> = ({
         textScrollRef.current! as any
       ).scrollHeight;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [textScrollRef.current, messages]);
 
   const toggleShowDate = () => {
@@ -312,6 +313,7 @@ const SMSTile: React.FC<SMSProps> = ({
               />
 
               {!showEmoji && (
+                // eslint-disable-next-line jsx-a11y/anchor-is-valid
                 <a
                   onClick={showEmojis}
                   style={{ alignSelf: "center", marginLeft: "9px" }}
