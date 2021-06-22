@@ -93,6 +93,10 @@ const Navbar = () => {
           <i className="fa fa-user-plus icon"></i>
         </NavbarItem>
       </Link>
+
+      <NavbarItem onClick={() => auth.logout()}>
+        <i className="fas fa-sign-out-alt icon"></i>
+      </NavbarItem>
     </NavbarContainer>
   );
 };
