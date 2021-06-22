@@ -102,7 +102,7 @@ const ResultsTable: React.FC<TableProps> = ({
 
   const [page, setPage] = useState<number>(0);
   const [perPage, setPerPage] = useState<number>(
-    options.defaultPerPage ? options.defaultPerPage : 8
+    options.defaultPerPage ? options.defaultPerPage : 15
   );
 
   const numPages = Math.ceil(data.length / perPage);

@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import secureAxios from "api/core/apiClient";
+import secureAxios from "../api/core/apiClient";
+import TextSendBar from "../components/TextSendBar";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
-import { IPatient } from "pages/PatientRecords/IPatientRecords";
 
 const SMSTileContainer = styled.div`
   display: flex;
@@ -50,13 +50,6 @@ const TextBubblePatient = styled.div`
   color: #404040;
 `;
 
-const TextBubblePatientGlucose = styled.div`
-  background: #bfb5ff;
-  border-radius: 0px 15px 15px 15px;
-  float: left;
-  color: #404040;
-`;
-
 const TextBubbleBot = styled.div`
   background: #a6cee3;
   border-radius: 15px 0px 15px 15px;
@@ -88,7 +81,6 @@ const TextBubbleText = styled.div`
   padding-right: 16px;
   white-space: pre-wrap;
 `;
-
 const SendButton = styled.button`
   background-color: white;
   font-size: 15px !important;
@@ -114,12 +106,16 @@ const SendButton = styled.button`
 const TextContainer = styled.div`
   padding: 20px;
   overflow-y: scroll;
-  max-height: 1150px;
+  max-height: 936px;
 `;
 
 const SendBarContainer = styled.div``;
 
-const SendInput = styled.textarea`
+const SendInputContainer = styled.div``;
+
+const SendButtonContainer = styled.div``;
+
+const SendInput = styled.input`
   background-color: #dde1e7;
   border-radius: 12px;
   padding: 8px 20px 8px 32px;
@@ -141,42 +137,30 @@ enum Texter {
 
 interface SMSProps {
   messages: any[];
-  patient: IPatient;
+  patient: any;
 }
 
 interface TextProps {
   message: string;
   type: Texter;
-  receivingNumber: string;
 }
 
-const TextBubble: React.FC<TextProps> = ({
-  message,
-  type,
-  receivingNumber,
-}: TextProps) => {
-  if (type === Texter.PATIENT) {
-    if (receivingNumber === "Glucose") {
-      return (
-        <TextBubblePatientGlucose data-testid="TextBubblePatientGlucose">
-          <TextBubbleText> {message} </TextBubbleText>
-        </TextBubblePatientGlucose>
-      );
-    }
+const TextBubble: React.FC<TextProps> = ({ message, type }: TextProps) => {
+  if (type == Texter.PATIENT) {
     return (
-      <TextBubblePatient data-testid="TextBubblePatientGeneral">
+      <TextBubblePatient>
         <TextBubbleText> {message} </TextBubbleText>
       </TextBubblePatient>
     );
-  } else if (type === Texter.BOT) {
+  } else if (type == Texter.BOT) {
     return (
-      <TextBubbleBot data-testid="TextBubbleBot">
+      <TextBubbleBot>
         <TextBubbleText> {message} </TextBubbleText>
       </TextBubbleBot>
     );
   } else {
     return (
-      <TextBubbleCoach data-testid="TextBubbleCoach">
+      <TextBubbleCoach>
         <TextBubbleText> {message} </TextBubbleText>
       </TextBubbleCoach>
     );
@@ -195,19 +179,19 @@ const SMSTile: React.FC<SMSProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const [showEmoji, setEmoji] = useState(false);
 
-  const showEmojis = () => {
+  const showEmojis = (e: any) => {
     setEmoji(true);
     document.addEventListener("click", closeEmojiMenu);
   };
 
-  const closeEmojiMenu = (e: MouseEvent) => {
-    if (ref.current && !ref.current.contains(e.target as Node)) {
+  const closeEmojiMenu = (e: any) => {
+    if (ref.current && !ref.current.contains(e.target)) {
       setEmoji(false);
       document.removeEventListener("click", closeEmojiMenu);
     }
   };
 
-  const textChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const textChange = (e: any) => {
     setNewMsg(e.target.value);
   };
 
@@ -218,9 +202,7 @@ const SMSTile: React.FC<SMSProps> = ({
 
   useEffect(() => {
     if (textScrollRef.current) {
-      (textScrollRef.current! as any).scrollTop = (
-        textScrollRef.current! as any
-      ).scrollHeight;
+      (textScrollRef.current! as any).scrollTop = (textScrollRef.current! as any).scrollHeight;
     }
   }, [textScrollRef.current, messages]);
 
@@ -251,13 +233,12 @@ const SMSTile: React.FC<SMSProps> = ({
       </BoxTop>
       <TextContainer ref={textScrollRef}>
         <TextTable>
-          {messages.map((message, index) => (
-            <tr key={index}>
+          {messages.map((message) => (
+            <tr>
               <TextBubbleRow>
                 <TextBubble
                   message={message.message}
                   type={message.type}
-                  receivingNumber={message?.receivedWith || ""}
                 ></TextBubble>
               </TextBubbleRow>
             </tr>
@@ -271,35 +252,27 @@ const SMSTile: React.FC<SMSProps> = ({
             e.preventDefault();
           }}
         >
-          <div
-            className="field has-addons"
-            style={{ padding: "20px", height: "75px" }}
-          >
-            <div className="control" style={{ width: "100%", display: "flex" }}>
+          <div className="field has-addons" style={{ padding: "20px" }}>
+            <div className="control" style={{ width: "100%" }}>
               <SendInput
                 name="query"
+                type="text"
                 placeholder="Enter your response..."
                 onChange={textChange}
                 value={newMsg}
-                data-testid="SendInput"
               />
 
               {!showEmoji && (
-                <a
-                  onClick={showEmojis}
-                  style={{ alignSelf: "center", marginLeft: "9px" }}
-                >
-                  {String.fromCodePoint(0x1f60a)}
-                </a>
+                <a onClick={showEmojis}>{String.fromCodePoint(0x1f60a)}</a>
               )}
             </div>
-            <div className="control" style={{ alignSelf: "center" }}>
+            <div className="control">
               <SendButton type="submit" onClick={onSend}>
                 <i className="far fa-paper-plane" aria-hidden="true"></i>
               </SendButton>
             </div>
             {showEmoji && (
-              <div style={{ position: "absolute", top: "75%" }}>
+              <div style={{ width: "355px", margin: "auto" }}>
                 <Picker onSelect={addEmoji} title="Emoji Selector" />
               </div>
             )}
@@ -310,4 +283,4 @@ const SMSTile: React.FC<SMSProps> = ({
   );
 };
 
-export { SMSTile, Texter, TextBubble };
+export { SMSTile, Texter };

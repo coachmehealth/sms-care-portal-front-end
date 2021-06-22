@@ -137,7 +137,7 @@ function outcomesToCSV(data: IOutcomeArray) {
 const Sidebar: React.FC<Props> = (props) => {
   return (
     <SidebarContainer>
-      {options.map((option: any) => {
+      {options.map((option) => {
         return (
           <Link
             to={option.path || "/"}
