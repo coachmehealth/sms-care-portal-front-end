@@ -115,7 +115,7 @@ const SendInputContainer = styled.div``;
 
 const SendButtonContainer = styled.div``;
 
-const SendInput = styled.input`
+const SendInput = styled.textarea`
   background-color: #dde1e7;
   border-radius: 12px;
   padding: 8px 20px 8px 32px;
@@ -252,18 +252,25 @@ const SMSTile: React.FC<SMSProps> = ({
             e.preventDefault();
           }}
         >
-          <div className="field has-addons" style={{ padding: "20px" }}>
-            <div className="control" style={{ width: "100%" }}>
+          <div
+            className="field has-addons"
+            style={{ padding: "20px", height: "75px" }}
+          >
+            <div className="control" style={{ width: "100%", display: "flex" }}>
               <SendInput
                 name="query"
-                type="text"
                 placeholder="Enter your response..."
                 onChange={textChange}
                 value={newMsg}
               />
 
               {!showEmoji && (
-                <a onClick={showEmojis}>{String.fromCodePoint(0x1f60a)}</a>
+                <a
+                  onClick={showEmojis}
+                  style={{ alignSelf: "center", marginLeft: "9px" }}
+                >
+                  {String.fromCodePoint(0x1f60a)}
+                </a>
               )}
             </div>
             <div className="control">
