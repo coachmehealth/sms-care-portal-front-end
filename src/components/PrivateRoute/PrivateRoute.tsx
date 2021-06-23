@@ -12,7 +12,6 @@ const PrivateRoute: React.FC<{
   logOutIfInactive();
   const condition = auth.isAuthenticated();
   localStorage.setItem("lastActivityDate", new Date().toDateString());
-
   return condition ? (
     <AppContainer>
       <Route

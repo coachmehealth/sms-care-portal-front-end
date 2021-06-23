@@ -101,8 +101,9 @@ const ScheduledMessageTable: React.FC<TableProps> = ({
         })[0]
       : null;
 
-  const [currentSort, setCurrentSort] =
-    useState<SortOption | null>(defaultSort);
+  const [currentSort, setCurrentSort] = useState<SortOption | null>(
+    defaultSort
+  );
   const [sortedData, setSortedData] = useState<any[]>([...data]);
 
   const [page, setPage] = useState<number>(0);
