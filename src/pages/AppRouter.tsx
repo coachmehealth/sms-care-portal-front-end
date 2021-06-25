@@ -9,7 +9,7 @@ import PatientRecords from "./PatientRecords";
 import AddPatientForm from "../components/AddPatientForm";
 import MessageTemplateForm from "../components/MessageTemplateForm";
 import AppContainer from "../components/AppContainer";
-import PrivateRoute from "../components/PrivateRoute";
+import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
 import PublicRoute from "../components/PublicRoute";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
