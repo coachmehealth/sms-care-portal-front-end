@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Field, FieldAttributes, Form, Formik } from "formik";
 import secureAxios from "../api/core/apiClient";
@@ -114,7 +114,6 @@ const AddPatientForm: React.FC = () => {
   const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [isError, setError] = useState(false);
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [language, setLanguage] = useState("English");
@@ -122,10 +121,25 @@ const AddPatientForm: React.FC = () => {
   const [coachId, setCoachId] = useState("");
   const [isEnabled, setEnabled] = useState(true);
   const [msgTime, setTime] = useState("00:00");
-
   const [coachName, setCoachName] = useState("");
   const [coachDropdown, setCoachDropdown] = useState([]);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  useEffect(() => {
+    const getCoachesDropdown = () => {
+      const query = " ";
+      secureAxios
+        .get("/api/coaches/search", {
+          params: {
+            query,
+          },
+        })
+        .then((data) => {
+          setCoachDropdown(data.data.coaches);
+        });
+    };
+    getCoachesDropdown();
+  }, []);
 
   const handleSubmit = (data: any) => {
     setLoading(true);
@@ -203,34 +217,24 @@ const AddPatientForm: React.FC = () => {
 
           <FieldWrapper icon="fa-user-shield">
             <input
-              name="coach"
+              list="select-coach-name"
+              id="select-coach-name-id"
+              name="select-coach-name"
               style={inputStyles}
-              type="text"
-              placeholder="Patient Coach"
-              className="form-field"
-              onInput={handleCoachInput}
-              autoComplete="none"
-              onFocus={() => setDropdownVisible(true)}
-              onBlur={() => setTimeout(() => setDropdownVisible(false), 100)}
-              onChange={() => {}}
-              value={coachName}
+              onChange={(e) => {
+                const newCoachName = e.target.value;
+                const newCoachId = coachDropdown.filter((coach: any) => {
+                  return coach?.name === newCoachName;
+                });
+                setCoachName(newCoachName);
+                setCoachId(newCoachId[0]);
+              }}
             />
-            {dropdownVisible && (
-              <CoachDropDown>
-                {coachDropdown.map((coach: any) => (
-                  <CoachDropDownElement
-                    key={coach._id}
-                    onClick={() => {
-                      setCoachName(coach.name);
-                      setCoachId(coach._id);
-                      setDropdownVisible(false);
-                    }}
-                  >
-                    <p>{coach.name}</p>
-                  </CoachDropDownElement>
-                ))}
-              </CoachDropDown>
-            )}
+            <datalist id="select-coach-name">
+              {coachDropdown.map((coach: any, index: any) => (
+                <option value={`${coach?.name}`} key={index} />
+              ))}
+            </datalist>
           </FieldWrapper>
 
           <FieldWrapper icon="fa-phone">
