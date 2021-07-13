@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-
 import { Field, FieldAttributes, Form, Formik } from "formik";
 import secureAxios from "../api/core/apiClient";
+import ICoach from "../interfaces/coach";
 
 import styled from "styled-components";
 
@@ -126,18 +126,18 @@ const AddPatientForm: React.FC = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   useEffect(() => {
-    const getCoachesDropdown = () => {
+    const getCoachesDropdown = async () => {
       const query = " ";
-      secureAxios
-        .get("/api/coaches/search", {
-          params: {
-            query,
-          },
-        })
-        .then((data) => {
-          setCoachDropdown(data.data.coaches);
-        });
+      const coachesData = await secureAxios.get("/api/coaches/search", {
+        params: {
+          query,
+        },
+      });
+      if (coachesData.data.coaches) {
+        setCoachDropdown(coachesData.data.coaches);
+      }
     };
+
     getCoachesDropdown();
   }, []);
 
@@ -223,7 +223,7 @@ const AddPatientForm: React.FC = () => {
               style={inputStyles}
               onChange={(e) => {
                 const newCoachName = e.target.value;
-                const newCoachId = coachDropdown.filter((coach: any) => {
+                const newCoachId = coachDropdown.filter((coach: ICoach) => {
                   return coach?.name === newCoachName;
                 });
                 setCoachName(newCoachName);
@@ -231,7 +231,7 @@ const AddPatientForm: React.FC = () => {
               }}
             />
             <datalist id="select-coach-name">
-              {coachDropdown.map((coach: any, index: any) => (
+              {coachDropdown.map((coach: ICoach, index: number) => (
                 <option value={`${coach?.name}`} key={index} />
               ))}
             </datalist>
