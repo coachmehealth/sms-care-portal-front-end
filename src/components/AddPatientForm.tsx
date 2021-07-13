@@ -53,26 +53,6 @@ const AddPatientHeader = styled.h1`
   color: #637792;
 `;
 
-const CoachDropDown = styled.ol`
-  list-style: none;
-  position: absolute;
-  left: 15px;
-  box-shadow: 0px 10px 10px 0px rgba(221, 225, 231, 0.5);
-`;
-
-const CoachDropDownElement = styled.div`
-  position: relative;
-  z-index: 100;
-  background-color: white;
-  padding: 10px 30px;
-  font-size: 14px;
-  border-bottom: 1px solid rgb(221, 225, 231);
-  transition: 0.2s ease;
-  &:hover {
-    background-color: rgb(238, 239, 242);
-  }
-`;
-
 const LanguageSelect = styled.select`
   margin: 10px 20px 20px 20px;
 `;
@@ -123,7 +103,6 @@ const AddPatientForm: React.FC = () => {
   const [msgTime, setTime] = useState("00:00");
   const [coachName, setCoachName] = useState("");
   const [coachDropdown, setCoachDropdown] = useState([]);
-  const [dropdownVisible, setDropdownVisible] = useState(false);
 
   useEffect(() => {
     const getCoachesDropdown = async () => {
@@ -166,20 +145,6 @@ const AddPatientForm: React.FC = () => {
         setMessage(err.response.data.msg);
         setLoading(false);
         setError(true);
-      });
-  };
-
-  const handleCoachInput = (e: any) => {
-    setCoachName(e.target.value);
-    const query = e.target.value;
-    secureAxios
-      .get("/api/coaches/search", {
-        params: {
-          query,
-        },
-      })
-      .then((data) => {
-        setCoachDropdown(data.data.coaches);
       });
   };
 
